@@ -1,7 +1,6 @@
-import { renderer, scene, camera, cube, animate   } from "./renderer.js"
+import { renderer, scene, camera,  rotateOnDrag   } from "./renderer.js"
 console.log("The eggs are at ./egg.jpg")
 
-camera.position.z = 30
 
-renderer.setAnimationLoop(animate)
+renderer.setAnimationLoop(rotateOnDrag);
 

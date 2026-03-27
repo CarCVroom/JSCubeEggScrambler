@@ -78,6 +78,7 @@ export function rotateOnDrag() {
         renderer.render(scene, camera);
 }
 
+// Outer turns
 export function R(numberAfterLetter) {
         
         const worldPos = new THREE.Vector3();   
@@ -103,7 +104,6 @@ export function R(numberAfterLetter) {
         renderer.render(scene, camera)
 }
 
-// Outer turns
 export function U(numberAfterLetter) {
 
         const worldPos = new THREE.Vector3();   

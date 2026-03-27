@@ -343,7 +343,7 @@ export function b(numberAfterLetter) {
         z(numberAfterLetter)
 }
 
-// M moves
+// Slice moves
 export function M(numberAfterLetter) {
         if (numberAfterLetter >= 4) {return 1;}
         R(numberAfterLetter);

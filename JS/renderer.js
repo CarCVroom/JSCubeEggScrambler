@@ -5,7 +5,7 @@ export const scene = new THREE.Scene();
 
 
 export const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-camera.position.set(0, 0, 5)
+camera.position.set(0, 0, 10)
 camera.lookAt(0, 0, 0);
 
 export const renderer = new THREE.WebGLRenderer();
@@ -51,15 +51,19 @@ for(let x = -1; x <= 1; x++) {
                         cubie.position.set(x, y, z);
                         const borderGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 1, 1));
                         const borderMat = new THREE.LineBasicMaterial({ color: 0x000000});
-
                         const border = new THREE.LineSegments(borderGeo, borderMat);
+                        
                         border.scale.setScalar(1.01); // slightly bigger
                         cubie.add(border); // attach to cubie so it moves with it
+                        
                         scene.add(cubie);
                         cubies.push(cubie);
+                        
                 }
         }
 }
+
+console.log(cubies)
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -73,6 +77,11 @@ const controls = new OrbitControls(camera, renderer.domElement);
 export function rotateOnDrag() {
         controls.update();
         renderer.render(scene, camera);
+}
+
+export function moveAPiece() {
+        cubies[0].position.set(-2,-2,-2);
+        renderer.render(scene, camera)
 }
 
 renderer.render(scene, camera)

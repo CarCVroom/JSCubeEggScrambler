@@ -103,6 +103,7 @@ export function R(numberAfterLetter) {
         renderer.render(scene, camera)
 }
 
+// Outer turns
 export function U(numberAfterLetter) {
 
         const worldPos = new THREE.Vector3();   
@@ -235,6 +236,8 @@ export function D(numberAfterLetter) {
         scene.remove(pivotPoint);
         renderer.render(scene, camera)
 }
+
+// Rotations
 export function x(numberAfterLetter) {
 
         const pivotPoint = new THREE.Object3D();
@@ -291,5 +294,93 @@ export function z(numberAfterLetter) {
         });
         scene.remove(pivotPoint);
         renderer.render(scene, camera)
+}
+
+// Wide moves
+export function r(numberAfterLetter) {
+        L(numberAfterLetter);
+        x(numberAfterLetter)
+}
+export function l(numberAfterLetter) {
+        R(numberAfterLetter);
+        if (numberAfterLetter === 1) {
+                numberAfterLetter = 3;
+        } else if (numberAfterLetter === 3) {
+                numberAfterLetter = 1;
+        } else {
+                numberAfterLetter = 2;
+        }
+        x(numberAfterLetter)
+}
+export function u(numberAfterLetter) {
+        D(numberAfterLetter);
+        y(numberAfterLetter)
+}
+export function d(numberAfterLetter) {
+        U(numberAfterLetter);
+        if (numberAfterLetter === 1) {
+                numberAfterLetter = 3;
+        } else if (numberAfterLetter === 3) {
+                numberAfterLetter = 1;
+        } else {
+                numberAfterLetter = 2;
+        }
+        y(numberAfterLetter)
+}
+export function f(numberAfterLetter) {
+        B(numberAfterLetter);
+        z(numberAfterLetter)
+}
+export function b(numberAfterLetter) {
+        F(numberAfterLetter);
+        if (numberAfterLetter === 1) {
+                numberAfterLetter = 3;
+        } else if (numberAfterLetter === 3) {
+                numberAfterLetter = 1;
+        } else {
+                numberAfterLetter = 2;
+        }
+        z(numberAfterLetter)
+}
+
+// M moves
+export function M(numberAfterLetter) {
+        if (numberAfterLetter >= 4) {return 1;}
+        R(numberAfterLetter);
+        if (numberAfterLetter === 1) {
+                numberAfterLetter = 3;
+        } else if (numberAfterLetter === 3) {
+                numberAfterLetter = 1;
+        } else {
+                numberAfterLetter = 2;
+        }
+        L(numberAfterLetter)
+        x(numberAfterLetter)
+}
+export function S(numberAfterLetter) {
+        if (numberAfterLetter >= 4) {return 1;}
+        B(numberAfterLetter)
+        z(numberAfterLetter)
+        if (numberAfterLetter === 1) {
+                numberAfterLetter = 3;
+        } else if (numberAfterLetter === 3) {
+                numberAfterLetter = 1;
+        } else {
+                numberAfterLetter = 2;
+        }
+        F(numberAfterLetter);
+}
+export function E(numberAfterLetter) {
+        if (numberAfterLetter >= 4) {return 1;}
+        U(numberAfterLetter);
+        if (numberAfterLetter === 1) {
+                numberAfterLetter = 3;
+        } else if (numberAfterLetter === 3) {
+                numberAfterLetter = 1;
+        } else {
+                numberAfterLetter = 2;
+        }
+        D(numberAfterLetter)
+        y(numberAfterLetter)
 }
 renderer.render(scene, camera)

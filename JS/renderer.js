@@ -53,7 +53,7 @@ for(let x = -1; x <= 1; x++) {
                         const borderMat = new THREE.LineBasicMaterial({ color: 0x000000});
                         const border = new THREE.LineSegments(borderGeo, borderMat);
                         
-                        border.scale.setScalar(1.01); // slightly bigger
+                        border.scale.setScalar(1.005); // slightly bigger
                         cubie.add(border); // attach to cubie so it moves with it
                         
                         scene.add(cubie);

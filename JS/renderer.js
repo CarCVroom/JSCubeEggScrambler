@@ -63,7 +63,6 @@ for(let x = -1; x <= 1; x++) {
         }
 }
 
-console.log(cubies)
 
 const controls = new OrbitControls(camera, renderer.domElement);
 

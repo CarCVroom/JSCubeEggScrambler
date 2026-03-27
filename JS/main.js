@@ -1,7 +1,44 @@
-import { renderer, scene, camera,  rotateOnDrag , moveAPiece  } from "./renderer.js"
+import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z  } from "./renderer.js"
 console.log("The eggs are at ./egg.jpg")
+
+function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 
 renderer.setAnimationLoop(rotateOnDrag);
 
-moveAPiece()
+//await wait(5000)
+
+L(1); B(1); R(2); B(3); R(2); U(2); F(1); D(1); R(2); U(1); R(2); F(2); D(2); R(1); U(1); B(1); L(2);
+
+
+
+// RmoveExperimental(1);
+// await wait(1000);
+// UmoveExperimental(1);
+// await wait(1000);
+// RmoveExperimental(3);
+// await wait(1000);
+// UmoveExperimental(3);
+// await wait(1000);
+// RmoveExperimental(3);
+// await wait(1000);
+// FmoveExperimental(1);
+// await wait(1000);
+// RmoveExperimental(2);
+// await wait(1000);
+// UmoveExperimental(3);
+// await wait(1000);
+// RmoveExperimental(3);
+// await wait(1000);
+// UmoveExperimental(3);
+// await wait(1000);
+// RmoveExperimental(1);
+// await wait(1000);
+// UmoveExperimental(1);
+// await wait(1000);
+// RmoveExperimental(3);
+// await wait(1000);
+// FmoveExperimental(3);
+

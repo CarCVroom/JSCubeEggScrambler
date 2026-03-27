@@ -79,9 +79,218 @@ export function rotateOnDrag() {
         renderer.render(scene, camera);
 }
 
-export function moveAPiece() {
-        cubies[0].position.set(-2,-2,-2);
+export function R(numberAfterLetter) {
+        
+        const worldPos = new THREE.Vector3();   
+
+        const pivotPoint = new THREE.Object3D()
+        pivotPoint.position.set(0, 0, 0)
+
+        cubies.forEach(element => {
+                element.getWorldPosition(worldPos);
+                if (Math.abs(worldPos.x - 1) < 0.01) { // selects all on the x === 1 side
+                        pivotPoint.add(element);
+                }
+        });
+
+        pivotPoint.rotation.x = -Math.PI / 2 * numberAfterLetter;
+        scene.add(pivotPoint)
+
+        let children = Array.prototype.slice.call(pivotPoint.children)
+        children.forEach(cubie => {
+                scene.attach(cubie)
+        });
+        scene.remove(pivotPoint);
         renderer.render(scene, camera)
 }
 
+export function U(numberAfterLetter) {
+
+        const worldPos = new THREE.Vector3();   
+
+        const pivotPoint = new THREE.Object3D()
+        pivotPoint.position.set(0, 0, 0)
+
+        cubies.forEach(element => {
+                element.getWorldPosition(worldPos);
+                if (Math.abs(worldPos.y - 1) < 0.01) { // selects all on the y === 1 side
+                        pivotPoint.add(element);
+                }
+        });
+
+        pivotPoint.rotation.y = -Math.PI / 2 * numberAfterLetter;
+        scene.add(pivotPoint);
+
+        let children = Array.prototype.slice.call(pivotPoint.children)
+        children.forEach(cubie => {
+                scene.attach(cubie)
+        });
+        scene.remove(pivotPoint);
+        renderer.render(scene, camera)
+}
+export function F(numberAfterLetter) {
+
+        const worldPos = new THREE.Vector3();   
+
+        const pivotPoint = new THREE.Object3D()
+        pivotPoint.position.set(0, 0, 0)
+
+        cubies.forEach(element => {
+                element.getWorldPosition(worldPos);
+                if (Math.abs(worldPos.z - 1) < 0.01) { // selects all on the z === 1 side
+                        pivotPoint.add(element);
+                }
+        });
+
+        pivotPoint.rotation.z = -Math.PI / 2 * numberAfterLetter;
+        scene.add(pivotPoint);
+
+        let children = Array.prototype.slice.call(pivotPoint.children)
+        children.forEach(cubie => {
+                scene.attach(cubie)
+        });
+        scene.remove(pivotPoint);
+        renderer.render(scene, camera)
+}
+export function B(numberAfterLetter) {
+
+        const worldPos = new THREE.Vector3();   
+        
+        // Makes an object to twist around
+        const pivotPoint = new THREE.Object3D() 
+        pivotPoint.position.set(0, 0, 0)
+
+        // Adds all of the B side pieces to the object
+        cubies.forEach(element => {
+                element.getWorldPosition(worldPos);
+                if (Math.abs(worldPos.z + 1) < 0.01) { // selects all on the z === -1 side
+                        pivotPoint.add(element);
+                }
+        });
+
+        // Twists them
+        pivotPoint.rotation.z = Math.PI / 2 * numberAfterLetter;
+        scene.add(pivotPoint);
+
+        // Removes the cubies from the object so that they can be used by other moves later
+        let children = Array.prototype.slice.call(pivotPoint.children)
+        children.forEach(cubie => {
+                scene.attach(cubie)
+        });
+        scene.remove(pivotPoint);
+        renderer.render(scene, camera)
+}
+export function L(numberAfterLetter) {
+
+        const worldPos = new THREE.Vector3();   
+        
+        // Makes an object to twist around
+        const pivotPoint = new THREE.Object3D() 
+        pivotPoint.position.set(0, 0, 0)
+
+        // Adds all of the B side pieces to the object
+        cubies.forEach(element => {
+                element.getWorldPosition(worldPos);
+                if (Math.abs(worldPos.x + 1) < 0.01) { // selects all on the z === -1 side
+                        pivotPoint.add(element);
+                }
+        });
+
+        // Twists them
+        pivotPoint.rotation.x = Math.PI / 2 * numberAfterLetter;
+        scene.add(pivotPoint);
+
+        // Removes the cubies from the object so that they can be used by other moves later
+        let children = Array.prototype.slice.call(pivotPoint.children)
+        children.forEach(cubie => {
+                scene.attach(cubie)
+        });
+        scene.remove(pivotPoint);
+        renderer.render(scene, camera)
+}
+export function D(numberAfterLetter) {
+
+        const worldPos = new THREE.Vector3();   
+        
+        // Makes an object to twist around
+        const pivotPoint = new THREE.Object3D() 
+        pivotPoint.position.set(0, 0, 0)
+
+        // Adds all of the B side pieces to the object
+        cubies.forEach(element => {
+                element.getWorldPosition(worldPos);
+                if (Math.abs(worldPos.y + 1) < 0.01) { // selects all on the z === -1 side
+                        pivotPoint.add(element);
+                }
+        });
+
+        // Twists them
+        pivotPoint.rotation.y = Math.PI / 2 * numberAfterLetter;
+        scene.add(pivotPoint);
+
+        // Removes the cubies from the object so that they can be used by other moves later
+        let children = Array.prototype.slice.call(pivotPoint.children)
+        children.forEach(cubie => {
+                scene.attach(cubie)
+        });
+        scene.remove(pivotPoint);
+        renderer.render(scene, camera)
+}
+export function x(numberAfterLetter) {
+
+        const pivotPoint = new THREE.Object3D();
+        pivotPoint.position.set(0, 0, 0);
+
+        cubies.forEach(element => {
+                pivotPoint.add(element);     
+        });
+
+        pivotPoint.rotation.x = -Math.PI / 2 * numberAfterLetter;
+
+        // Removes the cubies from the object so that they can be used by other moves later
+        let children = Array.prototype.slice.call(pivotPoint.children)
+        children.forEach(cubie => {
+                scene.attach(cubie)
+        });
+        scene.remove(pivotPoint);
+        renderer.render(scene, camera)
+}
+export function y(numberAfterLetter) {
+
+        const pivotPoint = new THREE.Object3D();
+        pivotPoint.position.set(0, 0, 0);
+
+        cubies.forEach(element => {
+                pivotPoint.add(element);     
+        });
+
+        pivotPoint.rotation.y = -Math.PI / 2 * numberAfterLetter;
+
+        // Removes the cubies from the object so that they can be used by other moves later
+        let children = Array.prototype.slice.call(pivotPoint.children)
+        children.forEach(cubie => {
+                scene.attach(cubie)
+        });
+        scene.remove(pivotPoint);
+        renderer.render(scene, camera)
+}
+export function z(numberAfterLetter) {
+
+        const pivotPoint = new THREE.Object3D();
+        pivotPoint.position.set(0, 0, 0);
+
+        cubies.forEach(element => {
+                pivotPoint.add(element);     
+        });
+
+        pivotPoint.rotation.z = -Math.PI / 2 * numberAfterLetter;
+
+        // Removes the cubies from the object so that they can be used by other moves later
+        let children = Array.prototype.slice.call(pivotPoint.children)
+        children.forEach(cubie => {
+                scene.attach(cubie)
+        });
+        scene.remove(pivotPoint);
+        renderer.render(scene, camera)
+}
 renderer.render(scene, camera)

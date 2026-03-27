@@ -18,6 +18,7 @@ async function WR() {
 
         await wait(2000);
 
+        // 3xxx cross or what ever
         r(3); await wait(95);
         U(1); await wait(95);
         F(1); await wait(95);

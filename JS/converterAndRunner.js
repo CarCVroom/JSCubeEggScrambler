@@ -2,7 +2,7 @@ import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, 
 import { wait } from "./utils.js"
 
 
-export async function parser(str, time) {
+export async function parserAndRunnerVisual(str, time) {
         let m = "";
         let num = 0;
         let moves = str.split(" ");
@@ -104,3 +104,7 @@ export async function parser(str, time) {
 
         }
 }
+
+// Makes an array of all the function calls and then the wait function after
+// Then it calls them and that would maybe make this faster then looping whrought all of that for everytime
+// So it's slow once, but faster after all times.

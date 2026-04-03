@@ -3,7 +3,9 @@ import { wait } from "./utils.js"
 
 let movesOutside = []
 
-export async function parserAndRunnerVisual(str, time) {
+export async function parserAndRunnerVisual(str) {
+        movesOutside = []; // Clears it
+
         let m = "";
         let num = 0;
         let moves = str.split(" ");
@@ -11,8 +13,9 @@ export async function parserAndRunnerVisual(str, time) {
         for(let i = 0; i < moves.length; i++) {
                 let move = moves[i].trim();
                 if (move.length > 1) {
-                        m = move.substring(0, 1);
-                        let n = move.substring(1);
+                        m = move.substring(0,1);
+                        const n = move.substring(1);
+
                         if (n === "2" ) {
                                 num = 2;
                         } else if (n === "'") {
@@ -24,85 +27,73 @@ export async function parserAndRunnerVisual(str, time) {
                         m = move
                         num = 1;
                 }
+                const currentNum = num;
                 switch (m) {
                         case "R":
-                                R(num);
-                                await wait(time);
+                                movesOutside.push(() => R(currentNum));
                                 break;
                         case "L":
-                                L(num)
-                                await wait(time);
+                                movesOutside.push(() => L(currentNum));
                                 break;
                         case "U":
-                                U(num)
-                                await wait(time);
+                                movesOutside.push(() => U(currentNum));
                                 break;
                         case "D":
-                                D(num)
-                                await wait(time);
+                                movesOutside.push(() => D(currentNum));
                                 break;
                         case "B":
-                                B(num)
-                                await wait(time);
+                                movesOutside.push(() => B(currentNum));
                                 break;
                         case "F":
-                                F(num)
-                                await wait(time);
+                                movesOutside.push(() => F(currentNum));
                                 break;
                         case "r":
-                                r(num)
-                                await wait(time);
+                                movesOutside.push(() => r(currentNum));
                                 break;
                         case "l":
-                                l(num)
-                                await wait(time);
+                                movesOutside.push(() => l(currentNum));
                                 break;
                         case "f":
-                                f(num)
-                                await wait(time);
+                                movesOutside.push(() => f(currentNum));
                                 break;
                         case "b":
-                                b(num)
-                                await wait(time);
+                                movesOutside.push(() => b(currentNum));
                                 break;
                         case "u":
-                                u(num)
-                                await wait(time);
+                                movesOutside.push(() => u(currentNum));
                                 break;
                         case "d":
-                                d(num)
-                                await wait(time);
+                                movesOutside.push(() => d(currentNum));
                                 break;
                         case "M":
-                                M(num)
-                                await wait(time);
+                                movesOutside.push(() => M(currentNum));
                                 break;
                         case "S":
-                                S(num)
-                                await wait(time);
+                                movesOutside.push(() => S(currentNum));
                                 break;
                         case "E":
-                                E(num)
-                                await wait(time);
+                                movesOutside.push(() => E(currentNum));
                                 break;
                         case "x":
-                                x(num)
-                                await wait(time);
+                                movesOutside.push(() => x(currentNum));
                                 break;
                         case "y":
-                                y(num)
-                                await wait(time);
+                                movesOutside.push(() => y(currentNum));
                                 break;
                         case "z":
-                                z(num)
-                                await wait(time);
+                                movesOutside.push(() => z(currentNum));
                                 break;
                         default:
                                 break;
                 }
+        }
+        console.log(movesOutside);
+}
 
-                
-
+export async function runTheBitch(time) { 
+        for(const fn of movesOutside) {
+                fn();
+                await wait(time);
         }
 }
 

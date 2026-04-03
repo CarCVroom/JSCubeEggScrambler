@@ -1,5 +1,5 @@
 import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, l, u, d, f, b, M, S, E  } from "./renderer.js"
-import { parserAndRunnerVisual } from "./converterAndRunner.js"
+import { parserAndRunnerVisual, runTheBitch } from "./converterAndRunner.js"
 import { wait } from "./utils.js"
 console.log("The eggs are at ./egg.jpg")
 
@@ -8,6 +8,7 @@ console.log("The eggs are at ./egg.jpg")
 renderer.setAnimationLoop(rotateOnDrag);
 
 await wait(5000)
+console.log("time is up")
 
 
 async function betterWR() {
@@ -21,10 +22,17 @@ async function betterWR() {
         await parserAndRunnerVisual("x2");
         betterWR();
 }
-betterWR()
 
-
-
-
+async function betterBetterWR() {
+        await parserAndRunnerVisual("R U2 f' M x L2 d B' y r U' S E2 F l' z D2 b U M' R2 y' f U2 x' L b' S2 r' D E' z2 u F' R d2 B x U' l E2 M' y2 f' R2 U b z' D' S u2 L' x2 r F M2 y' B2 d' U2 z E l2 f x' R' S2 u B' M d2 y L U' z2 r2 F' E' b x U M' S' D2 f2 R y2 l' U b' x2 z F2 d E2 r' S L' U2 M b2 y' R' f' x z2 D' u E' B2 l2 S' R2")
+        await runTheBitch(70);
+        reapetTheThing()
+}
+async function reapetTheThing() {
+        await runTheBitch(0);
+        await wait(1500)
+        await reapetTheThing()
+}
+betterBetterWR();
 
 

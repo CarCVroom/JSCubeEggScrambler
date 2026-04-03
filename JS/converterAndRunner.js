@@ -1,6 +1,7 @@
 import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, l, u, d, f, b, M, S, E  } from "./renderer.js"
 import { wait } from "./utils.js"
 
+let movesOutside = []
 
 export async function parserAndRunnerVisual(str, time) {
         let m = "";

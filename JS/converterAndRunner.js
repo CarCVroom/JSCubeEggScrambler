@@ -93,8 +93,9 @@ export async function parserAndRunnerVisual(str) {
 export async function runTheBitch(time) { 
         for(const fn of movesOutside) {
                 fn();
-                await wait(time);
+                //await wait(time);
         }
+        renderer.render(scene, camera)
 }
 
 // Makes an array of all the function calls and then the wait function after

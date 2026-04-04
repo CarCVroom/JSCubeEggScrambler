@@ -101,7 +101,7 @@ export function R(numberAfterLetter) {
                 scene.attach(cubie)
         });
         scene.remove(pivotPoint);
-        renderer.render(scene, camera)
+        //renderer.render(scene, camera)
 }
 
 export function U(numberAfterLetter) {
@@ -126,7 +126,7 @@ export function U(numberAfterLetter) {
                 scene.attach(cubie)
         });
         scene.remove(pivotPoint);
-        renderer.render(scene, camera)
+        //renderer.render(scene, camera)
 }
 export function F(numberAfterLetter) {
 
@@ -150,7 +150,7 @@ export function F(numberAfterLetter) {
                 scene.attach(cubie)
         });
         scene.remove(pivotPoint);
-        renderer.render(scene, camera)
+        //renderer.render(scene, camera)
 }
 export function B(numberAfterLetter) {
 
@@ -178,7 +178,7 @@ export function B(numberAfterLetter) {
                 scene.attach(cubie)
         });
         scene.remove(pivotPoint);
-        renderer.render(scene, camera)
+        //renderer.render(scene, camera)
 }
 export function L(numberAfterLetter) {
 
@@ -206,7 +206,7 @@ export function L(numberAfterLetter) {
                 scene.attach(cubie)
         });
         scene.remove(pivotPoint);
-        renderer.render(scene, camera)
+        //renderer.render(scene, camera)
 }
 export function D(numberAfterLetter) {
 
@@ -234,7 +234,7 @@ export function D(numberAfterLetter) {
                 scene.attach(cubie)
         });
         scene.remove(pivotPoint);
-        renderer.render(scene, camera)
+        //renderer.render(scene, camera)
 }
 
 // Rotations
@@ -255,7 +255,7 @@ export function x(numberAfterLetter) {
                 scene.attach(cubie)
         });
         scene.remove(pivotPoint);
-        renderer.render(scene, camera)
+        //renderer.render(scene, camera)
 }
 export function y(numberAfterLetter) {
 
@@ -274,7 +274,7 @@ export function y(numberAfterLetter) {
                 scene.attach(cubie)
         });
         scene.remove(pivotPoint);
-        renderer.render(scene, camera)
+        //renderer.render(scene, camera)
 }
 export function z(numberAfterLetter) {
 
@@ -293,7 +293,7 @@ export function z(numberAfterLetter) {
                 scene.attach(cubie)
         });
         scene.remove(pivotPoint);
-        renderer.render(scene, camera)
+        //renderer.render(scene, camera)
 }
 
 // Wide moves

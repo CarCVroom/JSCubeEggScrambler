@@ -32,9 +32,10 @@ async function betterBetterWR() { // 63 tps
         //await parserAndRunnerVisual("R U2 f' M x L2 d B' y r U' S E2 F l' z D2 b U M' R2 y' f U2 x' L b' S2 r' D E' z2 u F' R d2 B x U' l E2 M' y2 f' R2 U b z' D' S u2 L' x2 r F M2 y' B2 d' U2 z E l2 f x' R' S2 u B' M d2 y L U' z2 r2 F' E' b x U M' S' D2 f2 R y2 l' U b' x2 z F2 d E2 r' S L' U2 M b2 y' R' f' x z2 D' u E' B2 l2 S' R2")
         // 100 Jperms + auf = 1414 moves.
         //await parserAndRunnerVisual("R U R' F' R U R' U' R' F R2 U' R' U'")
-        await parserAndRunnerVisual("B F D2 B2 F' D2 L' F' D U R' B R' D' F U' L2 B2")
+        await parserAndRunnerVisual("B F D2 B2 F' D2 L' F' D U R' B R' D' F U' L2 B2") // scram that Yiheng got or something idk.
 
 
+        // remove to comments to get loop, and remove less comments to get an infinite one. 
         //while (KeepRunning) {
                 await runTheBitch();
                 //await wait(1500)

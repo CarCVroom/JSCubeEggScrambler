@@ -93,7 +93,10 @@ export async function parserAndRunnerVisual(str) {
 export async function runTheBitch(time) { 
         for(const fn of movesOutside) {
                 fn();
-                //await wait(time);
+                //await wait(time);  
+                //
+                  // NOTE the await wait(time); limits the tps to ca 63 tps, I will add it to the solution one, not the scrabmle one as they will be the same otherwise
+                // 
         }
         renderer.render(scene, camera)
 }

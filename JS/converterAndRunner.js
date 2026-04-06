@@ -1,15 +1,18 @@
 import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, l, u, d, f, b, M, S, E  } from "./renderer.js"
 import { wait } from "./utils.js"
 
-let movesOutside = []
+let movesScramble = [];
+let movesSolution = [];
 
-export async function parserAndRunnerVisual(str) {
-        movesOutside = []; // Clears it
+export async function parserAndRunnerVisual(str, scramOrNot) { // true for scramble, false for soltuion
+        movesScramble = []; // Clears it
+        movesSolution = [];
+
+        const targetArray = scramOrNot ? movesScramble : movesSolution;
 
         let m = "";
         let num = 0;
         let moves = str.split(" ");
-        console.log(moves)
         for(let i = 0; i < moves.length; i++) {
                 let move = moves[i].trim();
                 if (move.length > 1) {
@@ -30,68 +33,70 @@ export async function parserAndRunnerVisual(str) {
                 const currentNum = num;
                 switch (m) {
                         case "R":
-                                movesOutside.push(() => R(currentNum));
+                                targetArray.push(() => R(currentNum));
                                 break;
                         case "L":
-                                movesOutside.push(() => L(currentNum));
+                                targetArray.push(() => L(currentNum));
                                 break;
                         case "U":
-                                movesOutside.push(() => U(currentNum));
+                                targetArray.push(() => U(currentNum));
                                 break;
                         case "D":
-                                movesOutside.push(() => D(currentNum));
+                                targetArray.push(() => D(currentNum));
                                 break;
                         case "B":
-                                movesOutside.push(() => B(currentNum));
+                                targetArray.push(() => B(currentNum));
                                 break;
                         case "F":
-                                movesOutside.push(() => F(currentNum));
+                                targetArray.push(() => F(currentNum));
                                 break;
                         case "r":
-                                movesOutside.push(() => r(currentNum));
+                                targetArray.push(() => r(currentNum));
                                 break;
                         case "l":
-                                movesOutside.push(() => l(currentNum));
+                                targetArray.push(() => l(currentNum));
                                 break;
                         case "f":
-                                movesOutside.push(() => f(currentNum));
+                                targetArray.push(() => f(currentNum));
                                 break;
                         case "b":
-                                movesOutside.push(() => b(currentNum));
+                                targetArray.push(() => b(currentNum));
                                 break;
                         case "u":
-                                movesOutside.push(() => u(currentNum));
+                                targetArray.push(() => u(currentNum));
                                 break;
                         case "d":
-                                movesOutside.push(() => d(currentNum));
+                                targetArray.push(() => d(currentNum));
                                 break;
                         case "M":
-                                movesOutside.push(() => M(currentNum));
+                                targetArray.push(() => M(currentNum));
                                 break;
                         case "S":
-                                movesOutside.push(() => S(currentNum));
+                                targetArray.push(() => S(currentNum));
                                 break;
                         case "E":
-                                movesOutside.push(() => E(currentNum));
+                                targetArray.push(() => E(currentNum));
                                 break;
                         case "x":
-                                movesOutside.push(() => x(currentNum));
+                                targetArray.push(() => x(currentNum));
                                 break;
                         case "y":
-                                movesOutside.push(() => y(currentNum));
+                                targetArray.push(() => y(currentNum));
                                 break;
                         case "z":
-                                movesOutside.push(() => z(currentNum));
+                                targetArray.push(() => z(currentNum));
                                 break;
                         default:
                                 break;
                 }
         }
-        console.log(movesOutside);
 }
 
-export async function runTheBitch(time) { 
-        for(const fn of movesOutside) {
+export async function runTheBitch(time, scramOrNot) { 
+
+        const targetArray = scramOrNot ? movesScramble : movesSolution;
+
+        for(const fn of targetArray) {
                 fn();
                 //await wait(time);  
                 //

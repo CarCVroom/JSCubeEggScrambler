@@ -4,17 +4,29 @@
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Rubik's cube side project</title>
+        <title>Rubik's cube side project</title>
+        <link rel="icon" type="image/x-icon" href="/JSCubeEggScrambler/assets/egg-BGdf_5a1.png">
         <style> 
                 body { margin: 0;}
         </style>
-  <script type="module" crossorigin src="/JSCubeEggScrambler/assets/index-IO9X3VW6.js"></script>
-  <link rel="stylesheet" crossorigin href="/JSCubeEggScrambler/assets/index-Cl2RI9xu.css">
+  <script type="module" crossorigin src="/JSCubeEggScrambler/assets/index-CWPcWU-T.js"></script>
+  <link rel="stylesheet" crossorigin href="/JSCubeEggScrambler/assets/index-rnzB6C8C.css">
 </head>
 <body>
 
-        <div id="info">Scramble under here in the future
-                <br><p>Theodor Zjader 2,76 wr solve</p>
+        <div id="info">
+                <div><label for="sramleInput">Enter the scramble here: </label>
+                        <input type="text" id="sramleInput" placeholder="U R U' R' (You don't need to enter both to do turns)" class="text"><br></div>
+                <div><label for="">Enter the solution here: </label>
+                        <input type="text" id="solutionInput" placeholder="R U R' U' (You don't need to enter both to do turns)" class="text"><br></div>
+
+                <div id="underInput"> 
+                        <button >Start</button> 
+
+                        <label for="TPSInput">TPS (max 30): </label><input type="number" name="tps" id="TPSInput">
+                
+                        <label for="loop">Loop</label><input type="checkbox" id="loop">
+                </div>
         </div>
         
 </body>

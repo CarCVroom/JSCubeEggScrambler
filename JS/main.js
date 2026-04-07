@@ -46,7 +46,7 @@ async function betterBetterWR(loop, scram, sol, scramMoves, solMoves, tps) { // 
         //}
         console.log(`Total: ${((performance.now() - start) / 1000).toFixed(2)}s`);
 }
-betterBetterWR();
+
 
 
 

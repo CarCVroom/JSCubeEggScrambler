@@ -98,7 +98,7 @@ export async function runTheBitch(time, scramOrNot) {
 
         for(const fn of targetArray) {
                 fn();
-                //await wait(time);  
+                if (!scramOrNot) { await wait(time); }
                 //
                   // NOTE the await wait(time); limits the tps to ca 63 tps, I will add it to the solution one, not the scrabmle one as they will be the same otherwise
                 // 

@@ -7,3 +7,13 @@
         display: block;
         color: white;
 }
+.text {
+        width: 80vw;
+        height: 1.5em;
+}
+#underInput {
+        margin-top: 10px;
+}
+#TPSInput {
+        width: 4em;
+}

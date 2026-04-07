@@ -1,7 +1,8 @@
 import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, l, u, d, f, b, M, S, E  } from "./renderer.js"
 import { parserAndRunnerVisual, runTheBitch } from "./converterAndRunner.js"
 import { wait } from "./utils.js"
-console.log("The eggs are at ./egg.jpg")
+import { getSrambleInput } from './input.js';
+console.log("The eggs are at ./egg.png")
 
 
 
@@ -23,7 +24,7 @@ async function betterWR() {
         betterWR();
 }
 
-async function betterBetterWR() { // 63 tps
+async function betterBetterWR(loop, scram, sol, scramMoves, solMoves, tps) { // 63 tps
         let start = performance.now();
         let j = 1;
         let KeepRunning = true;
@@ -32,12 +33,12 @@ async function betterBetterWR() { // 63 tps
         //await parserAndRunnerVisual("R U2 f' M x L2 d B' y r U' S E2 F l' z D2 b U M' R2 y' f U2 x' L b' S2 r' D E' z2 u F' R d2 B x U' l E2 M' y2 f' R2 U b z' D' S u2 L' x2 r F M2 y' B2 d' U2 z E l2 f x' R' S2 u B' M d2 y L U' z2 r2 F' E' b x U M' S' D2 f2 R y2 l' U b' x2 z F2 d E2 r' S L' U2 M b2 y' R' f' x z2 D' u E' B2 l2 S' R2")
         // 100 Jperms + auf = 1414 moves.
         //await parserAndRunnerVisual("R U R' F' R U R' U' R' F R2 U' R' U'")
-        await parserAndRunnerVisual("B F D2 B2 F' D2 L' F' D U R' B R' D' F U' L2 B2", true) // scram that Yiheng got or something idk.
+        await parserAndRunnerVisual("B F D2 B2 F' D2 L' F' D U R' B R' D' F U' L2 B2 x2 y R U2 D' R D L2 D' U' r U' r' u2 U' R U2 R' U R U' R' U' L U' L' U L U L' U2 L' U' L U2 L' U L U F U R U' R' y' U R' U R U' R' U R U2 R' U' R U' R U R U R U' R' U' R2 U", false) // scram that Yiheng got or something idk.
 
 
         // remove to comments to get loop, and remove less comments to get an infinite one. 
         //while (KeepRunning) {
-                await runTheBitch(0, true);
+                await runTheBitch(0, false);
                 //await wait(1500)
         //        if (j === 100) { KeepRunning = false }
         //        j++;
@@ -46,5 +47,6 @@ async function betterBetterWR() { // 63 tps
         console.log(`Total: ${((performance.now() - start) / 1000).toFixed(2)}s`);
 }
 betterBetterWR();
+
 
 

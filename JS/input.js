@@ -1,23 +1,20 @@
 import { parserAndRunnerVisual, runTheBitch } from "./converterAndRunner.js"
 import { wait } from "./utils.js"
 
-document.querySelector("button").addEventListener("click", getSrambleInput);
+document.querySelector("button").addEventListener("click", makeReadableCodeFromShittyInput);
 
-export async function getSrambleInput() {
-        let loop, scram, sol, scramMoves, solMoves, tps;
+export async function inputRunner(scramMoves, solMoves) {
+        let loop, tps; 
+        // Moves are from the parser
 
         loop = document.getElementById('loop').checked;
-        scramMoves = document.getElementById('sramleInput').value;
-        solMoves = document.getElementById('solutionInput').value;
+        
         tps = Number(document.getElementById('TPSInput').value);
 
         if (!tps) {
                 alert("Enter a tps");
                 return;
         }
-
-        if (!scramMoves) { scram = false; } else { scram = true; }
-        if (!solMoves) { sol = false; } else { sol = true;}
 
         if (tps > 30 ) { 
                 alert("Over 30 tps")
@@ -28,7 +25,7 @@ export async function getSrambleInput() {
         console.log(tps) //x' r' U F U' r U' r' U2 r' U r R U2 R2 U' R U R U2 R' U' F' r U R' U' r' F R
         console.log(`Scramble: ${scramMoves}, Solution: ${solMoves}`)
 
-        if (scram && sol) { 
+        if (scramMoves && solMoves) { 
                 if (loop) {
                         await parserAndRunnerVisual(scramMoves, true);
                         await parserAndRunnerVisual(solMoves, false); // Gets the moves now, and then runs them without computing them
@@ -65,7 +62,7 @@ export async function getSrambleInput() {
                 }
         }        
 
-        if (scram && !sol) {
+        if (scramMoves && !solMoves) {
                 if (loop) {
 
                 while (loop) {
@@ -83,7 +80,7 @@ export async function getSrambleInput() {
                 }
         }
 
-        if (!scram && sol) {
+        if (!scramMoves && solMoves) {
                 
                 await parserAndRunnerVisual(solMoves, false)
                 let h = 1
@@ -109,3 +106,24 @@ export async function getSrambleInput() {
 
 
 }       
+
+
+function makeReadableCodeFromShittyInput() {
+        let scramble = document.getElementById('sramleInput').value;
+        let solution = document.getElementById('solutionInput').value;
+
+        if (scramble) {
+                scramble = scramble.match(/[RUFBLDMSErufbldxyz][2']?/g)
+                scramble = scramble.join(" ")
+        }
+
+        if (solution) {
+                solution = solution.match(/[RUFBLDMSErufbldxyz][2']?/g)
+                solution = solution.join(" ")
+        }
+        // Makes an array split 
+
+        // Rejoins them into a string
+
+        inputRunner(scramble, solution);
+}

@@ -5,10 +5,10 @@ let movesScramble = [];
 let movesSolution = [];
 
 export async function parserAndRunnerVisual(str, scramOrNot) { // true for scramble, false for soltuion
-        movesScramble = []; // Clears it
-        movesSolution = [];
 
         const targetArray = scramOrNot ? movesScramble : movesSolution;
+
+        targetArray.length = 0;
 
         let m = "";
         let num = 0;
@@ -95,6 +95,8 @@ export async function parserAndRunnerVisual(str, scramOrNot) { // true for scram
 export async function runTheBitch(time, scramOrNot) { 
 
         const targetArray = scramOrNot ? movesScramble : movesSolution;
+
+        
 
         for(const fn of targetArray) {
                 fn();

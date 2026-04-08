@@ -2,14 +2,13 @@ import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, 
 import { parserAndRunnerVisual, runTheBitch } from "./converterAndRunner.js"
 import { wait } from "./utils.js"
 import { getSrambleInput } from './input.js';
-console.log("The eggs are at ./egg.png")
+console.log("The eggs are at ./assets/egg-BGdf_5a1.png")
 
 
 
 renderer.setAnimationLoop(rotateOnDrag);
 
-await wait(5000)
-console.log("time is up")
+
 
 
 async function betterWR() {

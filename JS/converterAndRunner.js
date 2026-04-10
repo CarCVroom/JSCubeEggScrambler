@@ -4,6 +4,8 @@ import { wait } from "./utils.js"
 let movesScramble = [];
 let movesSolution = [];
 
+export { movesScramble, movesSolution };
+
 export async function parserAndRunnerVisual(str, scramOrNot) { // true for scramble, false for soltuion
 
         const targetArray = scramOrNot ? movesScramble : movesSolution;
@@ -31,60 +33,114 @@ export async function parserAndRunnerVisual(str, scramOrNot) { // true for scram
                         num = 1;
                 }
                 const currentNum = num;
+                let fn;
                 switch (m) {
                         case "R":
-                                targetArray.push(() => R(currentNum));
+                                fn = () => R(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "R";
+                                targetArray.push(fn);
                                 break;
                         case "L":
-                                targetArray.push(() => L(currentNum));
+                                fn = () => L(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "L";
+                                targetArray.push(fn);
                                 break;
                         case "U":
-                                targetArray.push(() => U(currentNum));
+                                fn = () => U(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "U";
+                                targetArray.push(fn);
                                 break;
                         case "D":
-                                targetArray.push(() => D(currentNum));
+                                fn = () => D(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "D";
+                                targetArray.push(fn);
                                 break;
                         case "B":
-                                targetArray.push(() => B(currentNum));
+                                fn = () => B(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "B";
+                                targetArray.push(fn);
                                 break;
                         case "F":
-                                targetArray.push(() => F(currentNum));
+                                fn = () => F(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "F";
+                                targetArray.push(fn);
                                 break;
                         case "r":
-                                targetArray.push(() => r(currentNum));
+                                fn = () => r(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "r";
+                                targetArray.push(fn);
                                 break;
                         case "l":
-                                targetArray.push(() => l(currentNum));
+                                fn = () => l(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "l";
+                                targetArray.push(fn);
                                 break;
                         case "f":
-                                targetArray.push(() => f(currentNum));
+                                fn = () => f(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "f";
+                                targetArray.push(fn);
                                 break;
                         case "b":
-                                targetArray.push(() => b(currentNum));
+                                fn = () => b(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "b";
+                                targetArray.push(fn);
                                 break;
                         case "u":
-                                targetArray.push(() => u(currentNum));
+                                fn = () => u(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "u";
+                                targetArray.push(fn);
                                 break;
                         case "d":
-                                targetArray.push(() => d(currentNum));
+                                fn = () => d(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "d";
+                                targetArray.push(fn);
                                 break;
                         case "M":
-                                targetArray.push(() => M(currentNum));
+                                fn = () => M(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "M";
+                                targetArray.push(fn);
                                 break;
                         case "S":
-                                targetArray.push(() => S(currentNum));
+                                fn = () => S(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "S";
+                                targetArray.push(fn);
                                 break;
                         case "E":
-                                targetArray.push(() => E(currentNum));
+                                fn = () => E(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "E";
+                                targetArray.push(fn);
                                 break;
                         case "x":
-                                targetArray.push(() => x(currentNum));
+                                fn = () => x(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "x";
+                                targetArray.push(fn);
                                 break;
                         case "y":
-                                targetArray.push(() => y(currentNum));
-                                break;
+                                fn = () => y(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "y";
+                                targetArray.push(fn);
                         case "z":
-                                targetArray.push(() => z(currentNum));
+                                fn = () => z(currentNum);
+                                fn.firstParam = currentNum;
+                                fn.moveName = "z";
+                                targetArray.push(fn);
                                 break;
                         default:
                                 break;

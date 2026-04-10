@@ -52,7 +52,11 @@ export async function inputRunner(scramMoves, solMoves) {
                                 await runTheBitch(tps, false)
                                 console.log(`Total: ${((performance.now() - start) / 1000).toFixed(2)}s`);
 
-                                await wait(1000)
+                                await wait(1000);
+
+                                await reverseOldMoves()
+                                await runTheBitch(0, false);
+                                await runTheBitch(0, true);
                         }
                 } else {
                         parserAndRunnerVisual(scramMoves, true);
@@ -81,6 +85,10 @@ export async function inputRunner(scramMoves, solMoves) {
                         await runTheBitch(0, true)
 
                         await wait(1000)
+                        
+                        await reverseOldMoves()
+                        await runTheBitch(0, false);
+                        await runTheBitch(0, true);
                 }
 
                 } else {
@@ -108,6 +116,10 @@ export async function inputRunner(scramMoves, solMoves) {
                         h++;
 
                         await wait(1000)
+                        
+                        await reverseOldMoves()
+                        await runTheBitch(0, false);
+                        await runTheBitch(0, true);
                 }
 
                 } else {

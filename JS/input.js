@@ -4,6 +4,7 @@ import { wait } from "./utils.js"
 
 document.querySelector("button").addEventListener("click", makeReadableCodeFromShittyInput);
 console.log(movesScramble)
+let times  = [];
 
 export async function inputRunner(scramMoves, solMoves) {
         //console.warn("NOW in inputRunner")
@@ -31,16 +32,19 @@ export async function inputRunner(scramMoves, solMoves) {
                 return;
         }
 
-        tps = 1000 / tps;
+        tps = (1000 / tps) - 8;
         console.log(tps) //x' r' U F U' r U' r' U2 r' U r R U2 R2 U' R U R U2 R' U' F' r U R' U' r' F R
         console.log(`Scramble: ${scramMoves}, Solution: ${solMoves}`)
 
         if (scramMoves && solMoves) { 
                 if (loop) {
-                        await parserAndRunnerVisual(scramMoves, true);
-                        await parserAndRunnerVisual(solMoves, false); // Gets the moves now, and then runs them without computing them
+                        //await parserAndRunnerVisual(scramMoves, true);
+                        //await parserAndRunnerVisual(solMoves, false); // Gets the moves now, and then runs them without computing them
 
                         while (loop) {
+                                await wait(500);
+                                parserAndRunnerVisual(scramMoves, true)
+                                parserAndRunnerVisual(solMoves, false) // lol, but i might still not take that much time
                                 // Scramble
                                 await runTheBitch(0, true)
 
@@ -72,13 +76,16 @@ export async function inputRunner(scramMoves, solMoves) {
                         // Solve
                         await runTheBitch(tps, false)
                         console.log(`Total: ${((performance.now() - start) / 1000).toFixed(2)}s`);
+                        
                 }
         }        
 
         if (scramMoves && !solMoves) {
+                
                 if (loop) {
 
                 while (loop) {
+                        await wait(500);
                         // Scramble
                         parserAndRunnerVisual(scramMoves, true);
                         
@@ -92,9 +99,7 @@ export async function inputRunner(scramMoves, solMoves) {
                 }
 
                 } else {
-                        // Scramble
-                        parserAndRunnerVisual(scramMoves, true);
-                        // await reverseOldMoves()
+                        await parserAndRunnerVisual(scramMoves, true); // I have it at the start of the function and i forgor because im stupid and dumb
                         await runTheBitch(0, true)
                 }
                 //console.warn("In if statment")
@@ -103,12 +108,13 @@ export async function inputRunner(scramMoves, solMoves) {
 
         if (!scramMoves && solMoves) {
                 
-                await parserAndRunnerVisual(solMoves, false)
                 let h = 1
                 
                 if (loop) {
 
                 while (loop) {
+                        await wait(500);
+                        parserAndRunnerVisual(solMoves, false)
                         // Solve
                         let start = performance.now();
                         await runTheBitch(tps, false)
@@ -124,6 +130,7 @@ export async function inputRunner(scramMoves, solMoves) {
 
                 } else {
                         // Solve
+                        await parserAndRunnerVisual(solMoves, false)
                         await runTheBitch(tps, false)
                 }
 
@@ -162,6 +169,7 @@ async function reverseOldMoves() {
         let firstParamVar;
         movesScramble.reverse()
         movesScramble.forEach((move, i) => {
+                console.log(move.moveName, move.firstParam) // ← what does this show?
                 if (move.firstParam === 1) { 
                         // Reads the added things and then uses that to do the revese 1 -> 3, 3 -> 1
                         firstParamVar = 3;
@@ -182,7 +190,6 @@ async function reverseOldMoves() {
 
                 if (moveFn) {
                         const param = firstParamVar;
-                        console.log(`firstParamVar is ${firstParamVar}, and param is ${param}`)
                         fn = () => moveFn(param);
                         fn.firstParam = firstParamVar;
                         fn.moveName = move.moveName;
@@ -212,7 +219,6 @@ async function reverseOldMoves() {
 
                 if (moveFn) {
                         const param = firstParamVar;
-                        console.log(`firstParamVar is ${firstParamVar}, and param is ${param}`)
                         fn = () => moveFn(param);
                         fn.firstParam = firstParamVar;
                         fn.moveName = move.moveName;

@@ -8,4 +8,3 @@ console.log("The eggs are at ./assets/egg-BGdf_5a1.png")
 
 renderer.setAnimationLoop(rotateOnDrag);
 
-

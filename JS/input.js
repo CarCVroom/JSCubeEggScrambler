@@ -10,7 +10,6 @@ let solutionMovesReverse = [];
 export { scrambleMovesReverse, solutionMovesReverse };
 
 export async function inputRunner(scramMoves, solMoves) {
-        console.warn("Button pressed")
         
         await reverseOldMoves()
         await reverseMovesRun(true);
@@ -141,6 +140,11 @@ export async function inputRunner(scramMoves, solMoves) {
 
 }       
 
+//#########################################################################################################################################################################################
+//############################################################ UNDER HERE IS NOT INPUTRUNNER ###############################################################################################
+//#########################################################################################################################################################################################
+
+
 
 async function makeReadableCodeFromShittyInput() {
         console.warn("Button pressed")
@@ -165,6 +169,9 @@ async function makeReadableCodeFromShittyInput() {
         await inputRunner(scramble, solution);
         
 }
+
+//#########################################################################################################################################################################################
+
 
 async function reverseOldMoves() {
         let fn;

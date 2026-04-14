@@ -149,6 +149,8 @@ export async function parserAndRunnerVisual(str, scramOrNot) { // true for scram
         }
 }
 
+//#########################################################################################################################################################################################
+
 export async function runTheBitch(time, scramOrNot) { 
 
         const targetArray = scramOrNot ? movesScramble : movesSolution;
@@ -164,6 +166,8 @@ export async function runTheBitch(time, scramOrNot) {
         }
         renderer.render(scene, camera)
 }
+
+//#########################################################################################################################################################################################
 
 export async function reverseMovesRun(scramOrNot) {
 

@@ -1,21 +1,22 @@
-import { parserAndRunnerVisual, runTheBitch, movesScramble, movesSolution } from "./converterAndRunner.js"
+import { parserAndRunnerVisual, runTheBitch, movesScramble, movesSolution, reverseMovesRun } from "./converterAndRunner.js"
 import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, l, u, d, f, b, M, S, E  } from "./renderer.js"
 import { wait } from "./utils.js"
 
 document.querySelector("button").addEventListener("click", makeReadableCodeFromShittyInput);
-console.log(movesScramble)
-let times  = [];
+
+let scrambleMovesReverse = [];
+let solutionMovesReverse = [];
+
+export { scrambleMovesReverse, solutionMovesReverse };
 
 export async function inputRunner(scramMoves, solMoves) {
-        //console.warn("NOW in inputRunner")
-        //console.warn("MOVESSCRAMBLE OUTSIDE OF REVERSMVES")
-        //console.log(movesScramble)
+        console.warn("Button pressed")
         
         await reverseOldMoves()
-        await runTheBitch(0, false);
-        await runTheBitch(0, true);
+        await reverseMovesRun(true);
+        await reverseMovesRun(false);
 
-        let loop, tps; 
+        let tps, loop; 
         // Moves are from the parser
 
         loop = document.getElementById('loop').checked;
@@ -37,7 +38,7 @@ export async function inputRunner(scramMoves, solMoves) {
         console.log(`Scramble: ${scramMoves}, Solution: ${solMoves}`)
 
         if (scramMoves && solMoves) { 
-                if (loop) {
+                if (document.getElementById('loop').checked) {
                         //await parserAndRunnerVisual(scramMoves, true);
                         //await parserAndRunnerVisual(solMoves, false); // Gets the moves now, and then runs them without computing them
 
@@ -56,11 +57,11 @@ export async function inputRunner(scramMoves, solMoves) {
                                 await runTheBitch(tps, false)
                                 console.log(`Total: ${((performance.now() - start) / 1000).toFixed(2)}s`);
 
-                                await wait(1000);
+                                await wait(500);
 
                                 await reverseOldMoves()
-                                await runTheBitch(0, false);
-                                await runTheBitch(0, true);
+                                await reverseMovesRun(false);
+                                await reverseMovesRun(true);
                         }
                 } else {
                         parserAndRunnerVisual(scramMoves, true);
@@ -76,6 +77,7 @@ export async function inputRunner(scramMoves, solMoves) {
                         // Solve
                         await runTheBitch(tps, false)
                         console.log(`Total: ${((performance.now() - start) / 1000).toFixed(2)}s`);
+                        console.log(movesScramble)
                         
                 }
         }        
@@ -91,11 +93,11 @@ export async function inputRunner(scramMoves, solMoves) {
                         
                         await runTheBitch(0, true)
 
-                        await wait(1000)
+                        await wait(500)
                         
                         await reverseOldMoves()
-                        await runTheBitch(0, false);
-                        await runTheBitch(0, true);
+                        await reverseMovesRun(false);
+                        await reverseMovesRun(true);
                 }
 
                 } else {
@@ -121,11 +123,11 @@ export async function inputRunner(scramMoves, solMoves) {
                         console.log(`Total: ${((performance.now() - start))}mss${h}`);
                         h++;
 
-                        await wait(1000)
+                        await wait(500)
                         
                         await reverseOldMoves()
-                        await runTheBitch(0, false);
-                        await runTheBitch(0, true);
+                        await reverseMovesRun(false);
+                        await reverseMovesRun(true);
                 }
 
                 } else {
@@ -146,7 +148,7 @@ async function makeReadableCodeFromShittyInput() {
         let solution = document.getElementById('solutionInput').value;
 
         if (scramble) {
-                scramble = scramble.match(/[RUFBLDMSErufbldxyz][2']?/g);
+                scramble = scramble.match(/[RUFBLDMSErufbldxyz][2']?/g); // I LOVE REGEX THANK YOU CLAUDE FOR THIS IDK WHAT THIS MEANS
                 scramble = scramble.join(" ")
         }
 
@@ -167,8 +169,18 @@ async function makeReadableCodeFromShittyInput() {
 async function reverseOldMoves() {
         let fn;
         let firstParamVar;
-        movesScramble.reverse()
-        movesScramble.forEach((move, i) => {
+
+        scrambleMovesReverse = movesScramble.map(fn => ({
+                moveName: fn.moveName,
+                firstParam: fn.firstParam
+        }));
+        solutionMovesReverse = movesSolution.map(fn => ({
+                moveName: fn.moveName,
+                firstParam: fn.firstParam
+        }));
+
+        scrambleMovesReverse.reverse()
+        scrambleMovesReverse.forEach((move, i) => {
                 console.log(move.moveName, move.firstParam) // ← what does this show?
                 if (move.firstParam === 1) { 
                         // Reads the added things and then uses that to do the revese 1 -> 3, 3 -> 1
@@ -193,12 +205,12 @@ async function reverseOldMoves() {
                         fn = () => moveFn(param);
                         fn.firstParam = firstParamVar;
                         fn.moveName = move.moveName;
-                        movesScramble[i] = fn;
+                        scrambleMovesReverse[i] = fn;
                 }
                 // Bro how am i going to do this shit bro
         })
-        movesSolution.reverse()
-        movesSolution.forEach((move, i) => {
+        solutionMovesReverse.reverse()
+        solutionMovesReverse.forEach((move, i) => {
                 if (move.firstParam === 1) { 
                         // Reads the added things and then uses that to do the revese 1 -> 3, 3 -> 1
                         firstParamVar = 3;
@@ -222,7 +234,7 @@ async function reverseOldMoves() {
                         fn = () => moveFn(param);
                         fn.firstParam = firstParamVar;
                         fn.moveName = move.moveName;
-                        movesSolution[i] = fn;
+                        solutionMovesReverse[i] = fn;
                 }
                 // Bro how am i going to do this shit bro
         })
@@ -232,4 +244,7 @@ async function reverseOldMoves() {
         // NOW I NEED TO DO IT WITH SOLUTION
         // FUCK
         // (its really i just cant be asked)
+
+        // do i make the scrambles a diffrent array and so that there could be a setting to not have them as rn its kinda dumb.
+        // Also i want it so that i can stop it.
 }

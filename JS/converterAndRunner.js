@@ -1,5 +1,6 @@
 import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, l, u, d, f, b, M, S, E  } from "./renderer.js"
 import { wait } from "./utils.js"
+import { scrambleMovesReverse, solutionMovesReverse } from "./input.js"
 
 let movesScramble = [];
 let movesSolution = [];
@@ -162,6 +163,17 @@ export async function runTheBitch(time, scramOrNot) {
                 // 
         }
         renderer.render(scene, camera)
+}
+
+export async function reverseMovesRun(scramOrNot) {
+
+        const targetArray = scramOrNot ? scrambleMovesReverse : solutionMovesReverse;
+
+        for(const fn of targetArray) {
+                fn(); // Runs the ones without a stop between 
+                      // , and also with a diffrent arrays.
+        }
+
 }
 
 // Makes an array of all the function calls and then the wait function after

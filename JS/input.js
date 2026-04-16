@@ -11,16 +11,17 @@ export { scrambleMovesReverse, solutionMovesReverse };
 
 export async function inputRunner(scramMoves, solMoves) {
         
-        await reverseOldMoves()
-        await reverseMovesRun(true);
-        await reverseMovesRun(false);
 
-        let tps, loop; 
+        let tps, loop, solveOnStart; 
         // Moves are from the parser
+
+        solveOnStart = document.getElementById("solveOnStart").checked;
 
         loop = document.getElementById('loop').checked;
         
         tps = Number(document.getElementById('TPSInput').value);
+
+        if (solveOnStart) { await solvesOnStart() }
 
         if (!tps) {
                 alert("Enter a tps");
@@ -38,45 +39,30 @@ export async function inputRunner(scramMoves, solMoves) {
 
         if (scramMoves && solMoves) { 
                 if (document.getElementById('loop').checked) {
-                        //await parserAndRunnerVisual(scramMoves, true);
-                        //await parserAndRunnerVisual(solMoves, false); // Gets the moves now, and then runs them without computing them
-
                         while (loop) {
                                 await wait(500);
                                 parserAndRunnerVisual(scramMoves, true)
                                 parserAndRunnerVisual(solMoves, false) // lol, but i might still not take that much time
                                 // Scramble
                                 await runTheBitch(0, true)
-
                                 // Wait
                                 await wait(2000);
-
-                                let start = performance.now();
                                 // Solve
                                 await runTheBitch(tps, false)
-                                console.log(`Total: ${((performance.now() - start) / 1000).toFixed(2)}s`);
 
                                 await wait(500);
 
-                                await reverseOldMoves()
-                                await reverseMovesRun(false);
-                                await reverseMovesRun(true);
+                                if (solveOnStart) { await solvesOnStart(); }
                         }
                 } else {
                         parserAndRunnerVisual(scramMoves, true);
                         parserAndRunnerVisual(solMoves, false); // Gets the moves now, and then runs them without computing them
-                        
                         // Scramble
                         await runTheBitch(0, true)
-
                         // Wait
                         await wait(2000);
-
-                        let start = performance.now();
                         // Solve
                         await runTheBitch(tps, false)
-                        console.log(`Total: ${((performance.now() - start) / 1000).toFixed(2)}s`);
-                        console.log(movesScramble)
                         
                 }
         }        
@@ -94,39 +80,27 @@ export async function inputRunner(scramMoves, solMoves) {
 
                         await wait(500)
                         
-                        await reverseOldMoves()
-                        await reverseMovesRun(false);
-                        await reverseMovesRun(true);
+                        if (solveOnStart) { await solvesOnStart(); }
                 }
 
                 } else {
                         await parserAndRunnerVisual(scramMoves, true); // I have it at the start of the function and i forgor because im stupid and dumb
                         await runTheBitch(0, true)
                 }
-                //console.warn("In if statment")
-                //console.log(movesScramble)
         }
 
         if (!scramMoves && solMoves) {
-                
-                let h = 1
-                
                 if (loop) {
 
                 while (loop) {
                         await wait(500);
                         parserAndRunnerVisual(solMoves, false)
                         // Solve
-                        let start = performance.now();
                         await runTheBitch(tps, false)
-                        console.log(`Total: ${((performance.now() - start))}mss${h}`);
-                        h++;
 
                         await wait(500)
                         
-                        await reverseOldMoves()
-                        await reverseMovesRun(false);
-                        await reverseMovesRun(true);
+                        if (solveOnStart) { solvesOnStart(); }
                 }
 
                 } else {
@@ -255,4 +229,12 @@ async function reverseOldMoves() {
         // Also i want it so that i can stop it.
 
         // I should so that, maybe in my break.
+}
+
+//#########################################################################################################################################################################################################################################################################
+
+async function solvesOnStart() {
+        await reverseOldMoves()
+        await reverseMovesRun(true);
+        await reverseMovesRun(false); 
 }

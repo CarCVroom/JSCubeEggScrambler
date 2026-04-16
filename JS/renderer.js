@@ -354,13 +354,11 @@ export function M(numberAfterLetter) {
         } else {
                 numberAfterLetter = 2;
         }
-        L(numberAfterLetter)
-        x(numberAfterLetter)
+        r(numberAfterLetter)
 }
 export function S(numberAfterLetter) {
         if (numberAfterLetter >= 4) {return 1;}
-        B(numberAfterLetter)
-        z(numberAfterLetter)
+        f(numberAfterLetter)
         if (numberAfterLetter === 1) {
                 numberAfterLetter = 3;
         } else if (numberAfterLetter === 3) {
@@ -372,7 +370,7 @@ export function S(numberAfterLetter) {
 }
 export function E(numberAfterLetter) {
         if (numberAfterLetter >= 4) {return 1;}
-        U(numberAfterLetter);
+        d(numberAfterLetter);
         if (numberAfterLetter === 1) {
                 numberAfterLetter = 3;
         } else if (numberAfterLetter === 3) {
@@ -381,6 +379,5 @@ export function E(numberAfterLetter) {
                 numberAfterLetter = 2;
         }
         D(numberAfterLetter)
-        y(numberAfterLetter)
 }
 renderer.render(scene, camera)

@@ -188,7 +188,6 @@ async function reverseOldMoves() {
 
         scrambleMovesReverse.reverse()
         scrambleMovesReverse.forEach((move, i) => {
-                console.log(move.moveName, move.firstParam) // ← what does this show?
                 if (move.firstParam === 1) { 
                         // Reads the added things and then uses that to do the revese 1 -> 3, 3 -> 1
                         firstParamVar = 3;
@@ -254,4 +253,6 @@ async function reverseOldMoves() {
 
         // do i make the scrambles a diffrent array and so that there could be a setting to not have them as rn its kinda dumb.
         // Also i want it so that i can stop it.
+
+        // I should so that, maybe in my break.
 }

@@ -2,7 +2,8 @@ import { parserAndRunnerVisual, runTheBitch, movesScramble, movesSolution, rever
 import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, l, u, d, f, b, M, S, E  } from "./renderer.js"
 import { wait } from "./utils.js"
 
-document.querySelector("button").addEventListener("click", makeReadableCodeFromShittyInput);
+let startButton = document.querySelector("button");
+startButton.addEventListener("click", makeReadableCodeFromShittyInput);
 
 let scrambleMovesReverse = [];
 let solutionMovesReverse = [];
@@ -12,8 +13,10 @@ export { scrambleMovesReverse, solutionMovesReverse };
 export async function inputRunner(scramMoves, solMoves) {
         
 
-        let tps, loop, solveOnStart; 
+        let tps, loop, solveOnStart, breaked; 
         // Moves are from the parser
+
+        breaked = false;
 
         solveOnStart = document.getElementById("solveOnStart").checked;
 
@@ -39,20 +42,30 @@ export async function inputRunner(scramMoves, solMoves) {
 
         if (scramMoves && solMoves) { 
                 if (document.getElementById('loop').checked) {
+
+                                startButton.addEventListener("click", () => {
+                                        loop = false
+                                })
+
                         while (loop) {
                                 await wait(500);
-                                parserAndRunnerVisual(scramMoves, true)
-                                parserAndRunnerVisual(solMoves, false) // lol, but i might still not take that much time
+                                parserAndRunnerVisual(scramMoves, true);
+                                parserAndRunnerVisual(solMoves, false); // lol, but i might still not take that much time
                                 // Scramble
-                                await runTheBitch(0, true)
+                                await runTheBitch(0, true);
                                 // Wait
                                 await wait(2000);
                                 // Solve
-                                await runTheBitch(tps, false)
+                                await runTheBitch(tps, false);
+                                
+                                await wait(500);        
 
-                                await wait(500);
-
-                                if (solveOnStart) { await solvesOnStart(); }
+                                if (!loop) { console.log("Mhmmmhmmmhmmmhhmh im so full, stuff me more")}
+                                if (solveOnStart && loop) { await solvesOnStart(); }
+                                if (!loop && !breaked) {
+                                        console.log(`In last if ${breaked}`)
+                                        break;
+                                }
                         }
                 } else {
                         parserAndRunnerVisual(scramMoves, true);
@@ -235,6 +248,6 @@ async function reverseOldMoves() {
 
 async function solvesOnStart() {
         await reverseOldMoves()
-        await reverseMovesRun(true);
-        await reverseMovesRun(false); 
+        await reverseMovesRun(false);
+        await reverseMovesRun(true); 
 }

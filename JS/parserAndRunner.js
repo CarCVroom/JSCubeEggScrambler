@@ -7,7 +7,7 @@ let movesSolution = [];
 
 export { movesScramble, movesSolution };
 
-export async function parserAndRunnerVisual(str, scramOrNot) { // true for scramble, false for soltuion
+export async function parserVisual(str, scramOrNot) { // true for scramble, false for soltuion
 
         const targetArray = scramOrNot ? movesScramble : movesSolution;
 

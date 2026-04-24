@@ -11,18 +11,74 @@ const cube = [
 // index 4/ CENTER cant move
 
 // NOW WE HAVE ALL SIX SIDES OF A CUBE INDICATED BY COLORS
+let cubePlaying = [...cube];
 
-function moveR() {
-        let upp = [2, 0, 4, 5];
-        let cubePlaying = [...cube];
+function moveR(prime, doubleMove, move) {
 
-        for(let i = 0; i < upp.length; i++) {
-                for(const idx of [2, 5, 8]) {
-                        [cubePlaying[upp[i]][idx], cubePlaying[upp[i + 1]][idx]] =
-                        [cubePlaying[upp[i + 1]][idx], cubePlaying[upp[i]][idx]];
+        let upp = getTheInput(prime, move);
+        let times = doubleMove ? 2 : 1;
+        let stickers = sideStickers(move);
+        
+        for(let t = 0; t < times; t++) {
+                for(let i = 0; i < upp.length - 1; i++) {
+                        for(const idx of stickers) {
+                                [cubePlaying[upp[i]][idx],     cubePlaying[upp[i + 1]][idx]] =
+                                [cubePlaying[upp[i + 1]][idx], cubePlaying[upp[i]][idx]];
+                        }
                 }
         }
-
         console.log(cubePlaying)
 }
-moveR();
+function doubleArray(arr) {
+        return arr = [...arr, ...arr];
+}
+function getTheInput(prime, move) {
+        let R = [5, 4, 0, 2]; // This is a full move im stupid 
+        let L = [5, 2, 0, 4]; // add something and another paramater that makes it so that i can chose moves with one function.
+        let U = [2, 3, 4, 1];
+        let targetArray; 
+
+        switch (move) {
+                case "R":
+                        targetArray = R;                       
+                        break;
+                case "L":
+                        targetArray = L;                       
+                        break;
+                case "U":
+                        targetArray = U;
+                        break;
+                default:
+                        throw new Error(`Unknown move: "${move}"`);
+                        break;
+        }
+
+        if (prime) { // A check to see if it's not prime, as current order does a prime move
+                     // Will addapt this to make it able to do 2 moves later  
+                targetArray.reverse();
+        }
+
+        return targetArray;
+}
+function sideStickers(move) {
+        let stickers;
+
+        switch (move) {
+                case "R":
+                        stickers = [2,5,8]; 
+                        break;
+                case "L":
+                        stickers = [0,3,6]; 
+                        break;
+                case "U":
+                        stickers = [0,1,2];
+                default:
+                        break;
+        }
+
+        return stickers;
+}
+moveR(false, true, "U");
+//moveR(false, false, "R");
+
+// oh no i can do old pochman lol

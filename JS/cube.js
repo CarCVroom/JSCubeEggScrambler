@@ -27,11 +27,11 @@ function moveR(prime, doubleMove, move) {
                                 [cubePlaying[upp[i]][idx],     cubePlaying[upp[i + 1]][idx]] =
                                 [cubePlaying[upp[i + 1]][idx], cubePlaying[upp[i]][idx]];
                         }
-                        cubePlaying[side].forEach((sticker, i) => {
-                                if (i === 4) return;
-                                newSide[cwMap[i]] = sticker;
-                        })
                 }
+                cubePlaying[side].forEach((sticker, i) => {
+                        if (i === 4) return;
+                        newSide[cwMap[i]] = sticker;
+                })
         }
         console.log(cubePlaying)
 }

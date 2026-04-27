@@ -8,5 +8,6 @@
   },
   "scripts": {
     "deploy": "vite build && gh-pages -d dist"
-  }
+  },
+   "type": "module" 
 }

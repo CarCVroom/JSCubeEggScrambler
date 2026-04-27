@@ -36,6 +36,7 @@ function getTheInput(prime, move) {
         let R = [5, 4, 0, 2]; // This is a full move im stupid 
         let L = [5, 2, 0, 4]; // add something and another paramater that makes it so that i can chose moves with one function.
         let U = [2, 3, 4, 1];
+        let D = [] // figure it out bro #####
         let targetArray; 
 
         switch (move) {
@@ -72,13 +73,17 @@ function sideStickers(move) {
                         break;
                 case "U":
                         stickers = [0,1,2];
+                        break;
+                case "D":
+                        stickers = [6,7,8];
+                        break;
                 default:
                         break;
         }
 
         return stickers;
 }
-moveR(false, true, "U");
+moveR(false, false, "U");
 //moveR(false, false, "R");
 
 // oh no i can do old pochman lol

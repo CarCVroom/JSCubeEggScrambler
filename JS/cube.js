@@ -39,18 +39,10 @@ function doubleArray(arr) {
         return arr = [...arr, ...arr];
 }
 function getTheInput(prime, move) {
-<<<<<<< HEAD
-        let R = [5, 4, 0, 2]; // This is a full move im stupid 
-        let L = [5, 2, 0, 4]; // add something and another paramater that makes it so that i can chose moves with one function.
-        let U = [2, 3, 4, 1];
-        let D = [] // figure it out bro #####
-        let targetArray; 
-=======
         let R = [5, 4, 0, 2]; 
         let L = [5, 2, 0, 4]; 
         let U = [2, 3, 4, 1]; // this is the order that we are doing it in
         let targetArray, targetSideArray; 
->>>>>>> 5234496aeb0ea20ed0663b6c63627dc606942dba
 
         switch (move) {
                 case "R":
@@ -87,15 +79,7 @@ function sideStickers(move) {
                         break;
                 case "U":
                         stickers = [0,1,2];
-<<<<<<< HEAD
-                        break;
-                case "D":
-                        stickers = [6,7,8];
-                        break;
-                default:
-=======
                         side = 0;
->>>>>>> 5234496aeb0ea20ed0663b6c63627dc606942dba
                         break;
                 default:
                         throw new Error(`Unknown move: "${move}"`);
@@ -103,11 +87,7 @@ function sideStickers(move) {
 
         return { stickers, side };
 }
-<<<<<<< HEAD
-moveR(false, false, "U");
-=======
 moveR(false, false, "R");
->>>>>>> 5234496aeb0ea20ed0663b6c63627dc606942dba
 //moveR(false, false, "R");
 
 // oh no i can do old pochman lol

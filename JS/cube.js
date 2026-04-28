@@ -19,11 +19,17 @@ const cwMap = [2,5,8,1,4,7,0,3,6];
 printCube(cube)
 console.log('\n' + '-'.repeat(process.stdout.columns) + '\n');
 
+let R = [5, 4, 0, 2]; 
+let L = [5, 2, 0, 4]; 
+let U = [2, 3, 4, 1]; // this is the order that we are doing it in
+let D = [2, 1, 4, 3];
+let F = [5, 3, 0, 1];
+
 function moveR(prime, doubleMove, move) {
 
         let { targetArray: upp, targetSideArray: sideArray } = getTheInput(prime, move);
         let times = doubleMove ? 2 : 1;
-        let { stickers, side }= sideStickers(move);
+        let { stickers, side } = sideStickers(move);
         
         for(let t = 0; t < times; t++) {
                 let newSide = [...cubePlaying[side]];
@@ -45,11 +51,6 @@ function doubleArray(arr) {
         return arr = [...arr, ...arr];
 }
 function getTheInput(prime, move) {
-        let R = [5, 4, 0, 2]; 
-        let L = [5, 2, 0, 4]; 
-        let U = [2, 3, 4, 1]; // this is the order that we are doing it in
-        let D = [2, 1, 4, 3];
-        let F = [5, 3, 0, 1];
         let targetArray, targetSideArray; 
 
         switch (move) {
@@ -112,7 +113,7 @@ function sideStickers(move) {
 
         return { stickers, side };
 }
-moveR(true, true, "D");
+moveR(false, false, "F");
 //moveR(false, false, "R");
 
 // oh no i can do old pochman lol

@@ -20,23 +20,26 @@ printCube(cube)
 console.log('\n' + '-'.repeat(process.stdout.columns) + '\n');
 
 let R = [5, 4, 0, 2]; 
-let L = [5, 2, 0, 4]; 
+let L = [5, 2, 0, 4];         
 let U = [2, 3, 4, 1]; // this is the order that we are doing it in
 let D = [2, 1, 4, 3];
-let F = [5, 3, 0, 1];
+let F = [0, 1, 5, 3];
 
 function moveR(prime, doubleMove, move) {
 
         let { targetArray: upp, targetSideArray: sideArray } = getTheInput(prime, move);
         let times = doubleMove ? 2 : 1;
         let { stickers, side } = sideStickers(move);
+        const getStickers = (face) => typeof stickers === 'function' ? stickers(face) : stickers;
         
         for(let t = 0; t < times; t++) {
                 let newSide = [...cubePlaying[side]];
                 for(let i = 0; i < upp.length - 1; i++) {
-                        for(const idx of stickers) {
-                                [cubePlaying[upp[i]][idx],     cubePlaying[upp[i + 1]][idx]] =
-                                [cubePlaying[upp[i + 1]][idx], cubePlaying[upp[i]][idx]];
+                        const idxA = getStickers(upp[i]);
+                        const idxB = getStickers(upp[i + 1]);
+                        for(let s = 0; s < idxA.length; s++) {
+                                [cubePlaying[upp[i]][idxA[s]],     cubePlaying[upp[i + 1]][idxB[s]]] =
+                                [cubePlaying[upp[i + 1]][idxB[s]], cubePlaying[upp[i]][idxA[s]]];
                         }
                 }
                 cubePlaying[side].forEach((sticker, n) => {
@@ -46,9 +49,6 @@ function moveR(prime, doubleMove, move) {
                 cubePlaying[side] = newSide;
         }
         printCube(cubePlaying);
-}
-function doubleArray(arr) {
-        return arr = [...arr, ...arr];
 }
 function getTheInput(prime, move) {
         let targetArray, targetSideArray; 
@@ -88,23 +88,31 @@ function sideStickers(move) {
 
         switch (move) {
                 case "R":
-                        stickers = [2,5,8]; // These are the stickers on each side we are targeting
+                        stickers = () => [2,5,8]; // These are the stickers on each side we are targeting
                         side = 3;
                         break;
                 case "L":
-                        stickers = [0,3,6]; 
+                        stickers = () => [0,3,6]; 
                         side = 1;
                         break;
                 case "U":
-                        stickers = [0,1,2];
+                        stickers = () => [0,1,2];
                         side = 0;
                         break;
                 case "D":
-                        stickers = [6,7,8];
+                        stickers = () => [6,7,8];
                         side = 5;
                         break;
                 case "F":
-                        stickers = [6,7,8];
+                        stickers = (faceIdx) => {
+                                const faceStickersMap = {
+                                        0: [6,7,8], // U
+                                        1: [2,5,8], // L
+                                        5: [0,1,2],
+                                        3: [0,3,6]
+                                };
+                                return faceStickersMap[faceIdx] ?? [6,7,8];
+                        }
                         side = 2; // fuck why does f and b moves have to change EO...
                         break;
                 default:

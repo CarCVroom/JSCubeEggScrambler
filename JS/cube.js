@@ -1,12 +1,12 @@
 import { printCube } from './utils.js'
 
 const cube = [
-        ['aW','aW','bW','dW','WC','bW','dW','cW','cW'], // WHITE / U
-        ['eO','eO','fO','hO','OC','fO','hO','gO','gO'], // ORANGE / L
-        ['iG','iG','jG','lG','GC','jG','lG','kG','kG'], // GREEN / F
-        ['mR','mR','nR','pR','RC','nR','pR','oR','oR'], // RED / R
-        ['qB','qB','rB','tB','BC','rB','tB','sB','sB'], // BLUE / B
-        ['uY','uY','vY','xY','YC','vY','xY','wY','wY'], // YELLOW / D
+        ['aW','aW','bW','dW','CW','bW','dW','cW','cW'], // WHITE / U
+        ['eO','eO','fO','hO','CO','fO','hO','gO','gO'], // ORANGE / L
+        ['iG','iG','jG','lG','CG','jG','lG','kG','kG'], // GREEN / F
+        ['mR','mR','nR','pR','CR','nR','pR','oR','oR'], // RED / R
+        ['qB','qB','rB','tB','CB','rB','tB','sB','sB'], // BLUE / B
+        ['uY','uY','vY','xY','CY','vY','xY','wY','wY'], // YELLOW / D
         // help bro pls
 ];      
 // It would be like aabbCENTERccdd

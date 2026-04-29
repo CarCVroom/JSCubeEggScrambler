@@ -92,7 +92,15 @@ function sideStickers(move) {
 
         switch (move) {
                 case "R":
-                        stickers = () => [2,5,8]; // These are the stickers on each side we are targeting
+                        stickers = (faceIdx) => {
+                                const faceStickersMap = {
+                                        5: [2,5,8], // U
+                                        4: [0,3,6], // L
+                                        0: [2,5,8],
+                                        2: [2,5,8]
+                                };
+                                return faceStickersMap[faceIdx] ?? [6,7,8];
+                        }
                         side = 3;
                         break;
                 case "L":
@@ -142,8 +150,22 @@ function sideStickers(move) {
 
 move(false, false, "R");
 move(false, false, "U");
+move(true,  false, "R");
+move(true,  false, "U");
+move(true,  false, "R");
+move(false, false, "F");
+move(false, true,  "R");
+move(true,  false, "U");
+move(true,  false, "R");
+move(true,  false, "U");
+move(false, false, "R"); // Tperm no work
+move(true,  false, "U");
+move(true,  false, "R");
+move(true,  false, "F");
 
 console.log('\n' + '-'.repeat(process.stdout.columns) + '\n');
+
 printCube(cubePlaying)
+
 
 // oh no i can do old pochman lol

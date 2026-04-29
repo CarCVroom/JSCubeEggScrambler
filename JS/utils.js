@@ -27,4 +27,6 @@ export function printCube(cube) {
         console.log('      ' + row([D], 0));
         console.log('      ' + row([D], 1));
         console.log('      ' + row([D], 2));
+
+        console.log('\n' + '-'.repeat(process.stdout.columns) + '\n');
 }

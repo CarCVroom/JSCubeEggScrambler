@@ -24,8 +24,9 @@ let L = [5, 2, 0, 4];
 let U = [2, 3, 4, 1]; // this is the order that we are doing it in
 let D = [2, 1, 4, 3];
 let F = [0, 1, 5, 3];
+let B = [0, 3, 5, 1];
 
-function moveR(prime, doubleMove, move) {
+function move(prime, doubleMove, move) {
 
         let { targetArray: upp, targetSideArray: sideArray } = getTheInput(prime, move);
         let times = doubleMove ? 2 : 1;
@@ -68,6 +69,9 @@ function getTheInput(prime, move) {
                         break;
                 case "F":
                         targetArray = F;
+                        break;
+                case "B":
+                        targetArray = B;
                         break;
                 default:
                         throw new Error(`Unknown move: "${move}"`);
@@ -115,13 +119,31 @@ function sideStickers(move) {
                         }
                         side = 2; // fuck why does f and b moves have to change EO...
                         break;
+                case "B":
+                        stickers = (faceIdx) => {
+                                const faceStickersMap = {
+                                        0: [0,1,2], // U
+                                        3: [2,5,8],
+                                        5: [6,7,8],
+                                        1: [0,3,6], // L
+                                };
+                                return faceStickersMap[faceIdx] ?? [6,7,8];
+                        }
+                        side = 4; // fuck why does f and b moves have to change EO...
+                        break;
                 default:
                         throw new Error(`Unknown move: "${move}"`);
         }
 
         return { stickers, side };
 }
-moveR(false, false, "F");
+//move(true, true, "B");
 //moveR(false, false, "R");
+
+move(false, false, "R");
+move(false, false, "U");
+
+console.log('\n' + '-'.repeat(process.stdout.columns) + '\n');
+printCube(cubePlaying)
 
 // oh no i can do old pochman lol

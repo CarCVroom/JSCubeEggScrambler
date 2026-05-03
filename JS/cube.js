@@ -14,7 +14,7 @@ const cube = [
 // index 4/ CENTER cant move
 
 // NOW WE HAVE ALL SIX SIDES OF A CUBE INDICATED BY COLORS
-let cubePlaying = [...cube];
+let cubePlaying = structuredClone(cube); // why must copying an array be so hard
 const cwMap = [2,5,8,1,4,7,0,3,6];
 printCube(cube)
 console.log('\n' + '-'.repeat(process.stdout.columns) + '\n');
@@ -95,7 +95,7 @@ function sideStickers(move) {
                         stickers = (faceIdx) => {
                                 const faceStickersMap = {
                                         5: [2,5,8], // U
-                                        4: [0,3,6], // L
+                                        4: [6,3,0], // L
                                         0: [2,5,8],
                                         2: [2,5,8]
                                 };
@@ -121,7 +121,7 @@ function sideStickers(move) {
                                         0: [6,7,8], // U
                                         1: [2,5,8], // L
                                         5: [0,1,2],
-                                        3: [0,3,6]
+                                        3: [6,3,0]
                                 };
                                 return faceStickersMap[faceIdx] ?? [6,7,8];
                         }
@@ -147,7 +147,7 @@ function sideStickers(move) {
 }
 //move(true, true, "B");
 //moveR(false, false, "R");
-
+function Tperm() {
 move(false, false, "R");
 move(false, false, "U");
 move(true,  false, "R");
@@ -161,11 +161,19 @@ move(true,  false, "U");
 move(false, false, "R"); // Tperm no work
 move(true,  false, "U");
 move(true,  false, "R");
-move(true,  false, "F");
+move(true,  false, "F"); }
 
-console.log('\n' + '-'.repeat(process.stdout.columns) + '\n');
+//Tperm();
+//move(false, false, "R");
+//move(false, false, "U");
+//move(true, false, "R");
+move(true, false, "U"); // U' no work? what
 
+//console.log('\n' + '-'.repeat(process.stdout.columns) + '\n');
+console.log("Done can kinda just ignore")
 printCube(cubePlaying)
 
+console.log("Original state")
+printCube(cube);
 
 // oh no i can do old pochman lol

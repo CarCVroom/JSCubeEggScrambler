@@ -15,9 +15,9 @@ const cube = [
 
 // NOW WE HAVE ALL SIX SIDES OF A CUBE INDICATED BY COLORS
 let cubePlaying = structuredClone(cube); // why must copying an array be so hard
+export { cubePlaying, cube }
 const cwMap = [2,5,8,1,4,7,0,3,6];
 printCube(cube)
-console.log('\n' + '-'.repeat(process.stdout.columns) + '\n');
 
 let R = [5, 4, 0, 2]; 
 let L = [5, 2, 0, 4];         
@@ -26,7 +26,7 @@ let D = [2, 1, 4, 3];
 let F = [0, 1, 5, 3];
 let B = [0, 3, 5, 1];
 
-function move(prime, doubleMove, move) {
+export function move(prime, doubleMove, move) {
 
         let { targetArray: upp, targetSideArray: sideArray } = getTheInput(prime, move);
         let times = doubleMove ? 2 : 1;
@@ -41,6 +41,8 @@ function move(prime, doubleMove, move) {
                         for(let s = 0; s < idxA.length; s++) {
                                 [cubePlaying[upp[i]][idxA[s]],     cubePlaying[upp[i + 1]][idxB[s]]] =
                                 [cubePlaying[upp[i + 1]][idxB[s]], cubePlaying[upp[i]][idxA[s]]];
+                                //console.log(`i: ${i} s: ${s}`)
+                                //printCube(cubePlaying);
                         }
                 }
                 cubePlaying[side].forEach((sticker, n) => {
@@ -56,22 +58,22 @@ function getTheInput(prime, move) {
 
         switch (move) {
                 case "R":
-                        targetArray = R;                                         
+                        targetArray = structuredClone(R);                                         
                         break;
                 case "L":
-                        targetArray = L;                       
+                        targetArray = structuredClone(L);                                         
                         break;
                 case "U":
-                        targetArray = U;
+                        targetArray = structuredClone(U);                                         
                         break;
                 case "D":
-                        targetArray = D;
+                        targetArray = structuredClone(D);                                         
                         break;
                 case "F":
-                        targetArray = F;
+                        targetArray = structuredClone(F);                                         
                         break;
                 case "B":
-                        targetArray = B;
+                        targetArray = structuredClone(B);                                         
                         break;
                 default:
                         throw new Error(`Unknown move: "${move}"`);
@@ -80,9 +82,9 @@ function getTheInput(prime, move) {
         if (prime) { // A check to see if it's not prime, as current order does a prime move
                      // Will addapt this to make it able to do 2 moves later  
                 targetArray.reverse();
-                targetSideArray = cwMap.reverse();
+                targetSideArray = structuredClone(cwMap).reverse();
         } else {
-                targetSideArray = cwMap;
+                targetSideArray = structuredClone(cwMap); // Use structured clone so not to muteate the old ones when doing .revese
         }
 
         return { targetArray, targetSideArray };
@@ -104,7 +106,15 @@ function sideStickers(move) {
                         side = 3;
                         break;
                 case "L":
-                        stickers = () => [0,3,6]; 
+                        stickers = (faceIdx) => {
+                                const faceStickersMap = {
+                                        5: [0,3,6], // U
+                                        4: [8,5,2], // L
+                                        0: [0,3,6],
+                                        2: [0,3,6]
+                                };
+                                return faceStickersMap[faceIdx] ?? [6,7,8];
+                        }
                         side = 1;
                         break;
                 case "U":
@@ -119,9 +129,9 @@ function sideStickers(move) {
                         stickers = (faceIdx) => {
                                 const faceStickersMap = {
                                         0: [6,7,8], // U
-                                        1: [2,5,8], // L
-                                        5: [0,1,2],
-                                        3: [6,3,0]
+                                        1: [8,5,2], // L
+                                        5: [2,1,0],
+                                        3: [0,3,6],
                                 };
                                 return faceStickersMap[faceIdx] ?? [6,7,8];
                         }
@@ -130,8 +140,8 @@ function sideStickers(move) {
                 case "B":
                         stickers = (faceIdx) => {
                                 const faceStickersMap = {
-                                        0: [0,1,2], // U
-                                        3: [2,5,8],
+                                        0: [2,1,0], // U
+                                        3: [8,5,2],
                                         5: [6,7,8],
                                         1: [0,3,6], // L
                                 };
@@ -145,35 +155,5 @@ function sideStickers(move) {
 
         return { stickers, side };
 }
-//move(true, true, "B");
-//moveR(false, false, "R");
-function Tperm() {
-move(false, false, "R");
-move(false, false, "U");
-move(true,  false, "R");
-move(true,  false, "U");
-move(true,  false, "R");
-move(false, false, "F");
-move(false, true,  "R");
-move(true,  false, "U");
-move(true,  false, "R");
-move(true,  false, "U");
-move(false, false, "R"); // Tperm no work
-move(true,  false, "U");
-move(true,  false, "R");
-move(true,  false, "F"); }
-
-//Tperm();
-//move(false, false, "R");
-//move(false, false, "U");
-//move(true, false, "R");
-move(true, false, "U"); // U' no work? what
-
-//console.log('\n' + '-'.repeat(process.stdout.columns) + '\n');
-console.log("Done can kinda just ignore")
-printCube(cubePlaying)
-
-console.log("Original state")
-printCube(cube);
 
 // oh no i can do old pochman lol

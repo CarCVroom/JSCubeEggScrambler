@@ -26,6 +26,10 @@ let D = [2, 1, 4, 3];
 let F = [0, 1, 5, 3];
 let B = [0, 3, 5, 1];
 
+let x = [5, 4, 0, 2];
+let y = [2, 3, 4 ,1];
+let z = [0, 1, 5, 3]; // I think this is right, check after.
+
 export function move(prime, doubleMove, move) {
 
         let { targetArray: upp, targetSideArray: sideArray } = getTheInput(prime, move);
@@ -156,4 +160,7 @@ function sideStickers(move) {
         return { stickers, side };
 }
 
+function rotation(prime, double, rotation) {
+        let times = double ? 2 : 1;
+}
 // oh no i can do old pochman lol

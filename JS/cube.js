@@ -162,5 +162,33 @@ function sideStickers(move) {
 
 function rotation(prime, double, rotation) {
         let times = double ? 2 : 1;
+        let { side1: sideA, side2: sideB } = getSides(rotation);
+        
 }
+function getSides(rotation) {
+        rotation = rotation.toLowerCase();
+        let side1, side2;
+
+        switch (rotation) {
+                case "x":
+                        side1 = "R";
+                        side2 = "L"; 
+                        break;
+                case "y":
+                        side1 = "U";
+                        side2 = "D"; 
+                        break;
+                case "z":
+                        side1 = "F";
+                        side2 = "B"; 
+                        break;
+                default:
+                        throw new Error(`Unknown notation: "${rotation}"`);
+        }
+
+        return { side1, side2 };
+        
+}
+
+rotation(true, true, "x")
 // oh no i can do old pochman lol

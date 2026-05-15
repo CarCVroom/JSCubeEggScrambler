@@ -161,11 +161,15 @@ function sideStickers(move) {
 }
 
 function rotation(prime, double, rotation) {
+
         rotation = rotation.toLowerCase();
         let times = double ? 2 : 1;
         let { side1: sideA, side2: sideB } = getSides(rotation);
+        let { targetRotationArayy: upp, targetSideRotationArray: sideArray } = getInput(prime, rotation);
 
-
+        for(let t = 0; t < times; t++) {
+                // ############################################################ Work here
+        }
 }
 function getSides(rotation) {
         let side1, side2;
@@ -195,7 +199,25 @@ function getInput(prime, rotation) {
         switch (rotation) {
                 case "x":
                         targetRotationArayy = structuredClone(x);
+                        break;
+                case "y":
+                        targetRotationArayy = structuredClone(y);
+                        break;
+                case "z":
+                        targetRotationArayy = structuredClone(z);
+                        break;
+                default:
+                        throw new Error(`Unkown notation: "${rotation}"`)
         }
+
+        if (prime) {
+                targetRotationArayy.reverse();
+                targetSideRotationArray = structuredClone(cwMap).reverse();
+        } else {
+                targetSideRotationArray = structuredClone(cwMap);
+        }
+        
+        return { targetRotationArayy, targetSideRotationArray }
 }
 
 rotation(true, true, "x")

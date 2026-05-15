@@ -80,7 +80,7 @@ function getTheInput(prime, move) {
                         targetArray = structuredClone(B);                                         
                         break;
                 default:
-                        throw new Error(`Unknown move: "${move}"`);
+                        throw new Error(`Unknown notation: "${move}"`);
         }
 
         if (prime) { // A check to see if it's not prime, as current order does a prime move
@@ -154,19 +154,20 @@ function sideStickers(move) {
                         side = 4; // fuck why does f and b moves have to change EO...
                         break;
                 default:
-                        throw new Error(`Unknown move: "${move}"`);
+                        throw new Error(`Unknown notation: "${move}"`);
         }
 
         return { stickers, side };
 }
 
 function rotation(prime, double, rotation) {
+        rotation = rotation.toLowerCase();
         let times = double ? 2 : 1;
         let { side1: sideA, side2: sideB } = getSides(rotation);
-        
+
+
 }
 function getSides(rotation) {
-        rotation = rotation.toLowerCase();
         let side1, side2;
 
         switch (rotation) {
@@ -187,7 +188,14 @@ function getSides(rotation) {
         }
 
         return { side1, side2 };
-        
+}
+function getInput(prime, rotation) {
+        let targetRotationArayy, targetSideRotationArray;
+
+        switch (rotation) {
+                case "x":
+                        targetRotationArayy = structuredClone(x);
+        }
 }
 
 rotation(true, true, "x")

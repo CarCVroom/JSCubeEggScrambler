@@ -35,6 +35,4 @@ function oldPochmanY() {
         move(false, false, "R")  // R
 }
 
-oldPochmanY();
-
 printCube(cubePlaying)

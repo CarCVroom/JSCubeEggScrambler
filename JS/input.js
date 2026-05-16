@@ -49,8 +49,8 @@ export async function inputRunner(scramMoves, solMoves) {
 
                         while (loop) {
                                 await wait(500);
-                                parserAndRunnerVisual(scramMoves, true);
-                                parserAndRunnerVisual(solMoves, false); // lol, but i might still not take that much time
+                                parserVisual(scramMoves, true);
+                                parserVisual(solMoves, false); // lol, but i might still not take that much time
                                 // Scramble
                                 await runTheBitch(0, true);
                                 // Wait
@@ -68,8 +68,8 @@ export async function inputRunner(scramMoves, solMoves) {
                                 }
                         }
                 } else {
-                        parserAndRunnerVisual(scramMoves, true);
-                        parserAndRunnerVisual(solMoves, false); // Gets the moves now, and then runs them without computing them
+                        parserVisual(scramMoves, true);
+                        parserVisual(solMoves, false); // Gets the moves now, and then runs them without computing them
                         // Scramble
                         await runTheBitch(0, true)
                         // Wait
@@ -87,7 +87,7 @@ export async function inputRunner(scramMoves, solMoves) {
                 while (loop) {
                         await wait(500);
                         // Scramble
-                        parserAndRunnerVisual(scramMoves, true);
+                        parserVisual(scramMoves, true);
                         
                         await runTheBitch(0, true)
 
@@ -97,7 +97,7 @@ export async function inputRunner(scramMoves, solMoves) {
                 }
 
                 } else {
-                        await parserAndRunnerVisual(scramMoves, true); // I have it at the start of the function and i forgor because im stupid and dumb
+                        await parserVisual(scramMoves, true); // I have it at the start of the function and i forgor because im stupid and dumb
                         await runTheBitch(0, true)
                 }
         }
@@ -107,7 +107,7 @@ export async function inputRunner(scramMoves, solMoves) {
 
                 while (loop) {
                         await wait(500);
-                        parserAndRunnerVisual(solMoves, false)
+                        parserVisual(solMoves, false)
                         // Solve
                         await runTheBitch(tps, false)
 
@@ -118,7 +118,7 @@ export async function inputRunner(scramMoves, solMoves) {
 
                 } else {
                         // Solve
-                        await parserAndRunnerVisual(solMoves, false)
+                        await parserVisual(solMoves, false)
                         await runTheBitch(tps, false)
                 }
 
@@ -141,11 +141,13 @@ async function makeReadableCodeFromShittyInput() {
         if (scramble) {
                 scramble = scramble.match(/[RUFBLDMSErufbldxyz][2']?/g); // I LOVE REGEX THANK YOU CLAUDE FOR THIS IDK WHAT THIS MEANS
                 scramble = scramble.join(" ")
+                console.log(scramble)
         }
 
         if (solution) {
                 solution = solution.match(/[RUFBLDMSErufbldxyz][2']?/g);
                 solution = solution.join(" ")
+                console.log(scramble)
         }
         // Makes an array split 
 

@@ -35,6 +35,7 @@ export async function parserVisual(str, scramOrNot) { // true for scramble, fals
                 }
                 const currentNum = num;
                 let fn;
+                console.log(m)
                 switch (m) {
                         case "R":
                                 fn = () => R(currentNum);
@@ -137,6 +138,8 @@ export async function parserVisual(str, scramOrNot) { // true for scramble, fals
                                 fn.firstParam = currentNum;
                                 fn.moveName = "y";
                                 targetArray.push(fn);
+                                console.log(y)
+                                break;
                         case "z":
                                 fn = () => z(currentNum);
                                 fn.firstParam = currentNum;

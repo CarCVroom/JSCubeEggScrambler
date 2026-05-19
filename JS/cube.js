@@ -168,8 +168,13 @@ function rotation(prime, double, rotation) {
         let { targetRotationArayy: upp, targetSideRotationArray: sideArray } = getInput(prime, rotation);
 
         for(let t = 0; t < times; t++) {
-                // ############################################################ Work here
+                for(let i = 0; i < upp.length - 1; i++) {
+                        [cubePlaying[upp[i]], cubePlaying[upp[i + 1]]] =
+                        [cubePlaying[upp[i + 1]], cubePlaying[upp[i]]]; 
+                        // Still needs more work and acceptance testing
+                }
         }
+        printCube(cubePlaying)
 }
 function getSides(rotation) {
         let side1, side2;
@@ -220,5 +225,5 @@ function getInput(prime, rotation) {
         return { targetRotationArayy, targetSideRotationArray }
 }
 
-rotation(true, true, "x")
+rotation(false, false, "x");
 // oh no i can do old pochman lol

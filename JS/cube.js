@@ -168,11 +168,24 @@ function rotation(prime, double, rotation) {
         let { targetRotationArayy: upp, targetSideRotationArray: sideArray } = getInput(prime, rotation);
 
         for(let t = 0; t < times; t++) {
+                let newSideA = [...cubePlaying[sideA]];
+                let newSideB = [...cubePlaying[sideB]];
                 for(let i = 0; i < upp.length - 1; i++) {
                         [cubePlaying[upp[i]], cubePlaying[upp[i + 1]]] =
                         [cubePlaying[upp[i + 1]], cubePlaying[upp[i]]]; 
                         // Still needs more work and acceptance testing
                 }
+                cubePlaying[sideA].forEach((sticker, n) => {
+                        if (n === 4) return;
+                        newSideA[sideArray[n]] = sticker; 
+                })
+                cubePlaying[sideA] = newSideA;
+                sideArray.reverse(); // reverses it cuz it needs to.
+                cubePlaying[sideB].forEach((sticker, n) => {
+                        if (n === 4) return;
+                        newSideB[sideArray[n]] = sticker;
+                })
+                cubePlaying[sideB] = newSideB;
         }
         printCube(cubePlaying)
 }
@@ -181,16 +194,16 @@ function getSides(rotation) {
 
         switch (rotation) {
                 case "x":
-                        side1 = "R";
-                        side2 = "L"; 
+                        side1 = 3;
+                        side2 = 1; 
                         break;
                 case "y":
-                        side1 = "U";
-                        side2 = "D"; 
+                        side1 = 0;
+                        side2 = 5; 
                         break;
                 case "z":
-                        side1 = "F";
-                        side2 = "B"; 
+                        side1 = 2;
+                        side2 = 4; 
                         break;
                 default:
                         throw new Error(`Unknown notation: "${rotation}"`);

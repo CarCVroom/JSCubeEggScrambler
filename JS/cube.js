@@ -174,6 +174,7 @@ function rotation(prime, double, rotation) {
                         [cubePlaying[upp[i]], cubePlaying[upp[i + 1]]] =
                         [cubePlaying[upp[i + 1]], cubePlaying[upp[i]]]; 
                         // Still needs more work and acceptance testing
+                        // Rotation still needs more work rn it don't work
                 }
                 cubePlaying[sideA].forEach((sticker, n) => {
                         if (n === 4) return;
@@ -239,4 +240,15 @@ function getInput(prime, rotation) {
 }
 
 rotation(false, false, "x");
+move(true, false, "R");
+move(false, false, "U");
+move(true, false, "R");
+move(true, true, "D");
+move(false, false, "R");
+move(true, false, "U");
+move(true, false, "R");
+move(true, true, "D");
+move(true, true, "R");
+rotation(true, false, "x");
+//x R' U R' D2 R U' R' D2 R2
 // oh no i can do old pochman lol

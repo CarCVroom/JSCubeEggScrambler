@@ -239,6 +239,7 @@ function getInput(prime, rotation) {
         return { targetRotationArayy, targetSideRotationArray }
 }
 
+function aperm() {
 rotation(false, false, "x");
 move(true, false, "R");
 move(false, false, "U");
@@ -249,6 +250,9 @@ move(true, false, "U");
 move(true, false, "R");
 move(true, true, "D");
 move(true, true, "R");
-rotation(true, false, "x");
+rotation(true, false, "x");}
+
+
+rotation(false, false, "x");
 //x R' U R' D2 R U' R' D2 R2
 // oh no i can do old pochman lol

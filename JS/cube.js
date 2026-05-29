@@ -26,9 +26,9 @@ let D = [2, 1, 4, 3];
 let F = [0, 1, 5, 3];
 let B = [0, 3, 5, 1];
 
-let x = [5, 4, 0, 2];
-let y = [2, 3, 4 ,1];
-let z = [0, 1, 5, 3]; // I think this is right, check after.
+let x = [2, 0, 4, 5];
+let y = [1, 4, 3 ,2];
+let z = [3, 5, 1, 0]; // I think this is right, check after.
 
 export function move(prime, doubleMove, move) {
 
@@ -39,6 +39,7 @@ export function move(prime, doubleMove, move) {
         
         for(let t = 0; t < times; t++) {
                 let newSide = [...cubePlaying[side]];
+
                 for(let i = 0; i < upp.length - 1; i++) {
                         const idxA = getStickers(upp[i]);
                         const idxB = getStickers(upp[i + 1]);
@@ -49,6 +50,7 @@ export function move(prime, doubleMove, move) {
                                 //printCube(cubePlaying);
                         }
                 }
+                
                 cubePlaying[side].forEach((sticker, n) => {
                         if (n === 4) return;
                         newSide[sideArray[n]] = sticker;
@@ -168,14 +170,36 @@ function rotation(prime, double, rotation) {
         let { targetRotationArayy: upp, targetSideRotationArray: sideArray } = getInput(prime, rotation);
 
         for(let t = 0; t < times; t++) {
+
+                const [a, b, c, d] = [
+                cubePlaying[upp[0]],
+                cubePlaying[upp[1]],
+                cubePlaying[upp[2]],
+                cubePlaying[upp[3]],
+                ];
+                
+                [cubePlaying[upp[0]], cubePlaying[upp[1]], cubePlaying[upp[2]], cubePlaying[upp[3]]]
+                = prime ? [b, c, d, a] : [d, a, b, c];
+
+                if (rotation == "r") {
+                        cubePlaying[upp[1]] = flipFace(cubePlaying[upp[1]]);
+                        cubePlaying[upp[2]] = flipFace(cubePlaying[upp[2]]);
+                } else if (rotation === "z" && !prime) {
+                        cubePlaying[upp[0]] = rotateFace90CW(cubePlaying[upp[0]]);
+                        cubePlaying[upp[1]] = rotateFace90CW(cubePlaying[upp[1]]);
+                        cubePlaying[upp[2]] = rotateFace90CW(cubePlaying[upp[2]]);
+                        cubePlaying[upp[3]] = rotateFace90CW(cubePlaying[upp[3]]);
+                } else if (rotation === "z" && prime) {
+                        cubePlaying[upp[0]] = rotateFace90CCW(cubePlaying[upp[0]]);
+                        cubePlaying[upp[1]] = rotateFace90CCW(cubePlaying[upp[1]]);
+                        cubePlaying[upp[2]] = rotateFace90CCW(cubePlaying[upp[2]]);
+                        cubePlaying[upp[3]] = rotateFace90CCW(cubePlaying[upp[3]]);
+
+                }
+
                 let newSideA = [...cubePlaying[sideA]];
                 let newSideB = [...cubePlaying[sideB]];
-                for(let i = 0; i < upp.length - 1; i++) {
-                        [cubePlaying[upp[i]], cubePlaying[upp[i + 1]]] =
-                        [cubePlaying[upp[i + 1]], cubePlaying[upp[i]]]; 
-                        // Still needs more work and acceptance testing
-                        // Rotation still needs more work rn it don't work
-                }
+
                 cubePlaying[sideA].forEach((sticker, n) => {
                         if (n === 4) return;
                         newSideA[sideArray[n]] = sticker; 
@@ -230,7 +254,6 @@ function getInput(prime, rotation) {
         }
 
         if (prime) {
-                targetRotationArayy.reverse();
                 targetSideRotationArray = structuredClone(cwMap).reverse();
         } else {
                 targetSideRotationArray = structuredClone(cwMap);
@@ -239,20 +262,30 @@ function getInput(prime, rotation) {
         return { targetRotationArayy, targetSideRotationArray }
 }
 
-function aperm() {
-rotation(false, false, "x");
-move(true, false, "R");
-move(false, false, "U");
-move(true, false, "R");
-move(true, true, "D");
-move(false, false, "R");
-move(true, false, "U");
-move(true, false, "R");
-move(true, true, "D");
-move(true, true, "R");
-rotation(true, false, "x");}
+function flipFace(face) {
+        let flipped = [...face];
+        let noCenter = [0,1,2,3,5,6,7,8]; // skip index 4
+        let vals = noCenter.map(i => face[i]).reverse();
+        noCenter.forEach((i, n) => flipped[i] = vals[n]);
+        return flipped;
+}
+function rotateFace90CW(face) {
+        let r = [...face];
+        // 90° CW mapping for a 3x3: 0→2→8→6→0, 1→5→7→3→1
+        [r[0],r[2],r[8],r[6]] = [face[6],face[0],face[2],face[8]];
+        [r[1],r[5],r[7],r[3]] = [face[3],face[1],face[5],face[7]];
+        return r;
+}
+function rotateFace90CCW(face) {
+        let r = [...face];
+        [r[0],r[2],r[8],r[6]] = [face[2],face[8],face[6],face[0]];
+        [r[1],r[5],r[7],r[3]] = [face[5],face[7],face[3],face[1]];
+        return r;
+}
 
+//move(false,false, "U")
+rotation(true, false, "z");
+//move(false, false, "R")
 
-rotation(false, false, "x");
 //x R' U R' D2 R U' R' D2 R2
-// oh no i can do old pochman lol
+// oh no i can do old pochman lol       

@@ -2,6 +2,7 @@ import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, 
 import { parserVisual, runTheBitch, movesScramble, movesSolution, reverseMovesRun } from "./parserAndRunner.js"
 import { wait } from "./utils.js"
 import { inputRunner } from './input.js';
+import { move, cubePlaying, cube, rotation } from './cube.js' 
 console.log("The eggs are at ./assets/egg-BGdf_5a1.png")
 
 

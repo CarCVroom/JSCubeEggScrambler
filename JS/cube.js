@@ -8,7 +8,7 @@ const cube = [
         ['qB','qB','rB','tB','CB','rB','tB','sB','sB'], // BLUE / B
         ['uY','uY','vY','xY','CY','vY','xY','wY','wY'], // YELLOW / D
         // help bro pls
-];      
+];
 // It would be like aabbCENTERccdd
 // First is corner and second is edge
 // index 4/ CENTER cant move
@@ -17,10 +17,9 @@ const cube = [
 let cubePlaying = structuredClone(cube); // why must copying an array be so hard
 export { cubePlaying, cube }
 const cwMap = [2,5,8,1,4,7,0,3,6];
-printCube(cube)
 
-let R = [5, 4, 0, 2]; 
-let L = [5, 2, 0, 4];         
+let R = [5, 4, 0, 2];
+let L = [5, 2, 0, 4];
 let U = [2, 3, 4, 1]; // this is the order that we are doing it in
 let D = [2, 1, 4, 3];
 let F = [0, 1, 5, 3];
@@ -36,7 +35,7 @@ export function move(prime, doubleMove, move) {
         let times = doubleMove ? 2 : 1;
         let { stickers, side } = sideStickers(move);
         const getStickers = (face) => typeof stickers === 'function' ? stickers(face) : stickers;
-        
+
         for(let t = 0; t < times; t++) {
                 let newSide = [...cubePlaying[side]];
 
@@ -50,7 +49,7 @@ export function move(prime, doubleMove, move) {
                                 //printCube(cubePlaying);
                         }
                 }
-                
+
                 cubePlaying[side].forEach((sticker, n) => {
                         if (n === 4) return;
                         newSide[sideArray[n]] = sticker;
@@ -60,33 +59,33 @@ export function move(prime, doubleMove, move) {
         printCube(cubePlaying);
 }
 function getTheInput(prime, move) {
-        let targetArray, targetSideArray; 
+        let targetArray, targetSideArray;
 
         switch (move) {
                 case "R":
-                        targetArray = structuredClone(R);                                         
+                        targetArray = structuredClone(R);
                         break;
                 case "L":
-                        targetArray = structuredClone(L);                                         
+                        targetArray = structuredClone(L);
                         break;
                 case "U":
-                        targetArray = structuredClone(U);                                         
+                        targetArray = structuredClone(U);
                         break;
                 case "D":
-                        targetArray = structuredClone(D);                                         
+                        targetArray = structuredClone(D);
                         break;
                 case "F":
-                        targetArray = structuredClone(F);                                         
+                        targetArray = structuredClone(F);
                         break;
                 case "B":
-                        targetArray = structuredClone(B);                                         
+                        targetArray = structuredClone(B);
                         break;
                 default:
                         throw new Error(`Unknown notation: "${move}"`);
         }
 
         if (prime) { // A check to see if it's not prime, as current order does a prime move
-                     // Will addapt this to make it able to do 2 moves later  
+                     // Will addapt this to make it able to do 2 moves later
                 targetArray.reverse();
                 targetSideArray = structuredClone(cwMap).reverse();
         } else {
@@ -162,7 +161,7 @@ function sideStickers(move) {
         return { stickers, side };
 }
 
-function rotation(prime, double, rotation) {
+export function rotation(prime, double, rotation) {
 
         rotation = rotation.toLowerCase();
         let times = double ? 2 : 1;
@@ -177,7 +176,7 @@ function rotation(prime, double, rotation) {
                 cubePlaying[upp[2]],
                 cubePlaying[upp[3]],
                 ];
-                
+
                 [cubePlaying[upp[0]], cubePlaying[upp[1]], cubePlaying[upp[2]], cubePlaying[upp[3]]]
                 = prime ? [b, c, d, a] : [d, a, b, c];
 
@@ -202,7 +201,7 @@ function rotation(prime, double, rotation) {
 
                 cubePlaying[sideA].forEach((sticker, n) => {
                         if (n === 4) return;
-                        newSideA[sideArray[n]] = sticker; 
+                        newSideA[sideArray[n]] = sticker;
                 })
                 cubePlaying[sideA] = newSideA;
                 sideArray.reverse(); // reverses it cuz it needs to.
@@ -220,15 +219,15 @@ function getSides(rotation) {
         switch (rotation) {
                 case "x":
                         side1 = 3;
-                        side2 = 1; 
+                        side2 = 1;
                         break;
                 case "y":
                         side1 = 0;
-                        side2 = 5; 
+                        side2 = 5;
                         break;
                 case "z":
                         side1 = 2;
-                        side2 = 4; 
+                        side2 = 4;
                         break;
                 default:
                         throw new Error(`Unknown notation: "${rotation}"`);
@@ -258,7 +257,7 @@ function getInput(prime, rotation) {
         } else {
                 targetSideRotationArray = structuredClone(cwMap);
         }
-        
+
         return { targetRotationArayy, targetSideRotationArray }
 }
 
@@ -283,9 +282,24 @@ function rotateFace90CCW(face) {
         return r;
 }
 
+// I NEED WIDE MOVES ADD HERE BRO
+export function wideMove(prime, double, moveN) {
+        moveN = moveN.toLowerCase();
+
+        switch (moveN) {
+                case "r":
+                        move(prime, double, "L")
+                        rotation(prime, double, "x")
+                        break;
+        }
+}
+// I ALSO NEED SOME SLICE MOVES
+
 //move(false,false, "U")
-rotation(true, false, "z");
+//rotation(true, false, "z");
 //move(false, false, "R")
 
 //x R' U R' D2 R U' R' D2 R2
-// oh no i can do old pochman lol       
+// oh no i can do old pochman lol
+
+wideMove(false, false, "r")

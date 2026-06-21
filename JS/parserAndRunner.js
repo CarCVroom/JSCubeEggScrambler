@@ -1,6 +1,7 @@
 import { renderer, scene, camera,  rotateOnDrag , R, U, F, B, D, L, x, y, z, r, l, u, d, f, b, M, S, E  } from "./renderer.js"
 import { wait } from "./utils.js"
 import { scrambleMovesReverse, solutionMovesReverse } from "./input.js"
+import { move, rotation } from "./cube.js"
 
 let movesScramble = [];
 let movesSolution = [];
@@ -42,42 +43,48 @@ export async function parserVisual(str, scramOrNot) { // true for scramble, fals
                                 fn.firstParam = currentNum;
                                 fn.moveName = "R";
                                 targetArray.push(fn);
+                                move(currentNum === 3, currentNum === 2, "R")
                                 break;
                         case "L":
                                 fn = () => L(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "L";
                                 targetArray.push(fn);
+                                move(currentNum === 3, currentNum === 2, "L")
                                 break;
                         case "U":
                                 fn = () => U(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "U";
                                 targetArray.push(fn);
+                                move(currentNum === 3, currentNum === 2, "U")
                                 break;
                         case "D":
                                 fn = () => D(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "D";
                                 targetArray.push(fn);
+                                move(currentNum === 3, currentNum === 2, "F")
                                 break;
                         case "B":
                                 fn = () => B(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "B";
                                 targetArray.push(fn);
+                                move(currentNum === 3, currentNum === 2, "B")
                                 break;
                         case "F":
                                 fn = () => F(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "F";
                                 targetArray.push(fn);
+                                move(currentNum === 3, currentNum === 2, "F")
                                 break;
                         case "r":
                                 fn = () => r(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "r";
-                                targetArray.push(fn);
+                                targetArray.push(fn); // I NEED WIDE MOVES
                                 break;
                         case "l":
                                 fn = () => l(currentNum);
@@ -132,19 +139,21 @@ export async function parserVisual(str, scramOrNot) { // true for scramble, fals
                                 fn.firstParam = currentNum;
                                 fn.moveName = "x";
                                 targetArray.push(fn);
+                                rotation(currentNum === 3, currentNum === 2, "x")
                                 break;
                         case "y":
                                 fn = () => y(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "y";
                                 targetArray.push(fn);
-                                console.log(y)
+                                rotation(currentNum === 3, currentNum === 2, "y")
                                 break;
                         case "z":
                                 fn = () => z(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "z";
                                 targetArray.push(fn);
+                                rotation(currentNum === 3, currentNum === 2, "z")
                                 break;
                         default:
                                 break;
@@ -154,18 +163,18 @@ export async function parserVisual(str, scramOrNot) { // true for scramble, fals
 
 //#####################################################################################################################################################################################################################################################
 
-export async function runTheBitch(time, scramOrNot) { 
+export async function runTheBitch(time, scramOrNot) {
 
         const targetArray = scramOrNot ? movesScramble : movesSolution;
 
-        
+
 
         for(const fn of targetArray) {
                 fn();
                 if (!scramOrNot) { await wait(time); }
                 //
                   // NOTE the await wait(time); limits the tps to ca 63 tps, I will add it to the solution one, not the scrabmle one as they will be the same otherwise
-                // 
+                //
         }
         renderer.render(scene, camera)
 }
@@ -177,7 +186,7 @@ export async function reverseMovesRun(scramOrNot) {
         const targetArray = scramOrNot ? scrambleMovesReverse : solutionMovesReverse;
 
         for(const fn of targetArray) {
-                fn(); // Runs the ones without a stop between 
+                fn(); // Runs the ones without a stop between
                       // , and also with a diffrent arrays.
         }
 

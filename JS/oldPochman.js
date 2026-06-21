@@ -38,16 +38,21 @@ function oldPochmanY() {
 //oldPochmanY();
 
 function analyseer(cubePlaying) {
-        if (JSON.stringify(cubePlaying) == JSON.stringify(cube)) {
-                console.log("The cube is solved")
-                return true;
-        } else {
-                console.log("The cube is not solved")
-                printCube(cube);
-                console.log("Unsolved cube")
-                printCube(cubePlaying)
-                return false;
+        // I should make this a do while loop that checks if its solved
+        let solved = false;
+
+        do {
+                if (JSON.stringify(cubePlaying) == JSON.stringify(cube)) {
+                        console.log("The cube is solved")
+                        solved = true
+                } else {
+                        console.log("The cube is not solved")
+                        printCube(cube);
+                        console.log("Unsolved cube")
+                        printCube(cubePlaying)
+                }
         }
+        while (solved === false)
 
         // Start by learing more about old pochman lol
         // Get to the white top Green front

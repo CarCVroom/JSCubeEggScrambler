@@ -291,9 +291,45 @@ export function wideMove(prime, double, moveN) {
                         move(prime, double, "L")
                         rotation(prime, double, "x")
                         break;
+                case "l":
+                        move(prime, double, "R")
+                        rotation(prime ? false : true, double, "y");
+                        break;
+                case "u":
+                        move(prime, double, "D")
+                        rotation(prime, double, "y")
+                        break;
+                case "d":
+                        move(prime, double, "U")
+                        rotation(prime ? false : true, double, "y");
+                        break;
+                case "f":
+                        move(prime, double, "B")
+                        rotation(prime, double, "z")
+                        break;
+                case "l":
+                        move(prime, double, "F")
+                        rotation(prime ? false : true, double, "z");
+                        break;
         }
 }
 // I ALSO NEED SOME SLICE MOVES
+export function sliceMoves(prime, double, moveN) {
+        moveN = moveN.toLowerCase();
+
+        switch (moveN) {
+                case "M":
+                        wideMove(prime ? false : true, double, "r")
+                        move(prime, double, "R")
+                case "S":
+                        wideMove(prime, double, "f")
+                        move(prime ? false : true, double, "F")
+                case "M":
+                        wideMove(prime ? false : true, double, "u")
+                        move(prime, double, "U") // wow slice moves are easy i can't belive i made them so dumb before
+                                                // This is what's so good about having universal move functions and true false for prime and double moves
+        }
+}
 
 //move(false,false, "U")
 //rotation(true, false, "z");

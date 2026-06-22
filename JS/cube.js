@@ -1,12 +1,12 @@
 import { printCube } from './utils.js'
 
 const cube = [
-        ['aW','aW','bW','dW','CW','bW','dW','cW','cW'], // WHITE / U
-        ['eO','eO','fO','hO','CO','fO','hO','gO','gO'], // ORANGE / L
-        ['iG','iG','jG','lG','CG','jG','lG','kG','kG'], // GREEN / F
-        ['mR','mR','nR','pR','CR','nR','pR','oR','oR'], // RED / R
-        ['qB','qB','rB','tB','CB','rB','tB','sB','sB'], // BLUE / B
-        ['uY','uY','vY','xY','CY','vY','xY','wY','wY'], // YELLOW / D
+        ['aW','aW','bW','dW','CW','bW','dW','cW','cW'], // WHITE / U 0
+        ['eO','eO','fO','hO','CO','fO','hO','gO','gO'], // ORANGE / L 1
+        ['iG','iG','jG','lG','CG','jG','lG','kG','kG'], // GREEN / F 2
+        ['mR','mR','nR','pR','CR','nR','pR','oR','oR'], // RED / R 3
+        ['qB','qB','rB','tB','CB','rB','tB','sB','sB'], // BLUE / B 4
+        ['uY','uY','vY','xY','CY','vY','xY','wY','wY'], // YELLOW / D 5
         // help bro pls
 ];
 // It would be like aabbCENTERccdd
@@ -338,4 +338,6 @@ export function sliceMoves(prime, double, moveN) {
 //x R' U R' D2 R U' R' D2 R2
 // oh no i can do old pochman lol
 
-wideMove(false, false, "r")
+//move(false, false, "R")
+rotation(false, false, "y")
+rotation(false, true, "z")

@@ -43,42 +43,36 @@ export async function parserVisual(str, scramOrNot) { // true for scramble, fals
                                 fn.firstParam = currentNum;
                                 fn.moveName = "R";
                                 targetArray.push(fn);
-                                move(currentNum === 3, currentNum === 2, "R")
                                 break;
                         case "L":
                                 fn = () => L(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "L";
                                 targetArray.push(fn);
-                                move(currentNum === 3, currentNum === 2, "L")
                                 break;
                         case "U":
                                 fn = () => U(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "U";
                                 targetArray.push(fn);
-                                move(currentNum === 3, currentNum === 2, "U")
                                 break;
                         case "D":
                                 fn = () => D(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "D";
                                 targetArray.push(fn);
-                                move(currentNum === 3, currentNum === 2, "F")
                                 break;
                         case "B":
                                 fn = () => B(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "B";
                                 targetArray.push(fn);
-                                move(currentNum === 3, currentNum === 2, "B")
                                 break;
                         case "F":
                                 fn = () => F(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "F";
                                 targetArray.push(fn);
-                                move(currentNum === 3, currentNum === 2, "F")
                                 break;
                         case "r":
                                 fn = () => r(currentNum);
@@ -139,21 +133,18 @@ export async function parserVisual(str, scramOrNot) { // true for scramble, fals
                                 fn.firstParam = currentNum;
                                 fn.moveName = "x";
                                 targetArray.push(fn);
-                                rotation(currentNum === 3, currentNum === 2, "x")
                                 break;
                         case "y":
                                 fn = () => y(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "y";
                                 targetArray.push(fn);
-                                rotation(currentNum === 3, currentNum === 2, "y")
                                 break;
                         case "z":
                                 fn = () => z(currentNum);
                                 fn.firstParam = currentNum;
                                 fn.moveName = "z";
                                 targetArray.push(fn);
-                                rotation(currentNum === 3, currentNum === 2, "z")
                                 break;
                         default:
                                 break;

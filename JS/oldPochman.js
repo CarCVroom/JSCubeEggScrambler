@@ -37,7 +37,9 @@ function oldPochmanY() {
         move(false, false, "R")  // R
 }
 
-const edgePairs = [["aW"]["dW"]["bW"]["cW"]]
+const solvedEdges = [["aW", "qB"], ["dW", "eO"], ["cW", "iG"], ["bW", "mR"],
+               ["lG", "fO"], ["jG", "pR"], ["tB", "nR"], ["rB", "hO"],
+               ["uY", "kG"], ["xY", "gO"], ["wY", "sB"], ["vY", "oR"]] // Fill out with all the edges
 // need to finish with all of my edge pairs,
 // thinking it should be the faces/sides for EO in ZZ for main sticker
 
@@ -132,7 +134,6 @@ function centerAnalyser() {
 
 function makeEdgeMemmoList() {
         // first see if all the edges are solved
-        if ()
 }
 
 function makeCornerMemmoList() {

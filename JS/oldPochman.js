@@ -37,9 +37,9 @@ function oldPochmanY() {
         move(false, false, "R")  // R
 }
 
-const solvedEdges = [["aW", "qB"], ["dW", "eO"], ["cW", "iG"], ["bW", "mR"],
-                     ["lG", "fO"], ["jG", "pR"], ["tB", "nR"], ["rB", "hO"],
-                     ["uY", "kG"], ["xY", "gO"], ["wY", "sB"], ["vY", "oR"]] // Fill out with all the edges
+const solvedEdges = ["aW", "qB", "dW", "eO", "cW", "iG", "bW", "mR",
+                     "lG", "fO", "jG", "pR", "tB", "nR", "rB", "hO",
+                     "uY", "kG", "xY", "gO", "wY", "sB", "vY", "oR"] // Fill out with all the edges
 // need to finish with all of my edge pairs,
 // thinking it should be the faces/sides for EO in ZZ for main sticker
 
@@ -134,23 +134,31 @@ function centerAnalyser() {
 
 function makeEdgeMemmoList() {
         let edgesMemmoList = [];
+        let unsolvedEdgesObjectList = [];
         // first see if all the edges are solved
         let unsolvedEdges = [
-                [cubePlaying[0][1], cubePlaying[4][1]], // aW, qB
-                [cubePlaying[0][3], cubePlaying[1][1]], // dW, eO
-                [cubePlaying[0][7], cubePlaying[2][1]], // cW, iG
-                [cubePlaying[0][5], cubePlaying[3][1]], // bW, mR
+                cubePlaying[0][1], cubePlaying[4][1], // aW, qB
+                cubePlaying[0][3], cubePlaying[1][1], // dW, eO
+                cubePlaying[0][7], cubePlaying[2][1], // cW, iG
+                cubePlaying[0][5], cubePlaying[3][1], // bW, mR
 
-                [cubePlaying[2][3], cubePlaying[1][5]], // lG, fO
-                [cubePlaying[2][5], cubePlaying[3][3]], // jG, pR
-                [cubePlaying[4][3], cubePlaying[3][5]], // tB, nR
-                [cubePlaying[4][5], cubePlaying[1][3]], // rB, hO
+                cubePlaying[2][3], cubePlaying[1][5], // lG, fO
+                cubePlaying[2][5], cubePlaying[3][3], // jG, pR
+                cubePlaying[4][3], cubePlaying[3][5], // tB, nR
+                cubePlaying[4][5], cubePlaying[1][3], // rB, hO
 
-                [cubePlaying[5][1], cubePlaying[2][7]], // uY, kG
-                [cubePlaying[5][3], cubePlaying[1][7]], // xY, gO
-                [cubePlaying[5][7], cubePlaying[4][7]], // wY, sB
-                [cubePlaying[5][5], cubePlaying[3][7]]  // vY, oR
+                cubePlaying[5][1], cubePlaying[2][7], // uY, kG
+                cubePlaying[5][3], cubePlaying[1][7], // xY, gO
+                cubePlaying[5][7], cubePlaying[4][7], // wY, sB
+                cubePlaying[5][5], cubePlaying[3][7]  // vY, oR
         ];
+
+        let arrayOfUnsolvedEdges = [{
+                //name: "gW"
+                //pos: cubePlaying[1][2],
+                //solved: false, Something like this
+                //buffer: false
+        }]
 
         console.log(solvedEdges)
         console.log(unsolvedEdges)
@@ -162,6 +170,9 @@ function makeEdgeMemmoList() {
                 if (buffer === "bW") {
                         console.log("Buffer is solved")
                         // Pick another piece as buffer
+                        // It should probably be separate
+                        // and not have a "main" sticker on an edge
+                        // Use the power of oop and make a object array for each piece
                 }
                 edgesMemmoList.push(cubePlaying[0][5].slice(0, cubePlaying[0][5].length / 2))
                 // need to do something with the buffer and

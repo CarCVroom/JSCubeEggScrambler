@@ -58,11 +58,6 @@ function analyseer() {
                 if (JSON.stringify(cubePlaying) == JSON.stringify(cube)) {
                         console.log("The cube is solved")
                         solved = true
-                } else {
-                        console.log("The cube is not solved")
-                        //printCube(cube);
-                        console.log("Unsolved cube")
-                        //printCube(cubePlaying)
                 }
 
                 // Start by learing more about old pochman lol
@@ -138,30 +133,70 @@ function makeEdgeMemmoList() {
         let isBuffer = false
         let isSolved = false
         let stickerName = "";
+        let edgePos = [];
+        let partner = 0;
         // first see if all the edges are solved
+        // let unsolvedEdges = [
+        //         cubePlaying[0][1], cubePlaying[4][1], // aW, qB
+        //         cubePlaying[0][3], cubePlaying[1][1], // dW, eO
+        //         cubePlaying[0][7], cubePlaying[2][1], // cW, iG
+        //         cubePlaying[0][5], cubePlaying[3][1], // bW, mR
+
+        //         cubePlaying[2][3], cubePlaying[1][5], // lG, fO
+        //         cubePlaying[2][5], cubePlaying[3][3], // jG, pR
+        //         cubePlaying[4][3], cubePlaying[3][5], // tB, nR
+        //         cubePlaying[4][5], cubePlaying[1][3], // rB, hO
+
+        //         cubePlaying[5][1], cubePlaying[2][7], // uY, kG
+        //         cubePlaying[5][3], cubePlaying[1][7], // xY, gO
+        //         cubePlaying[5][7], cubePlaying[4][7], // wY, sB
+        //         cubePlaying[5][5], cubePlaying[3][7]  // vY, oR
+        // ];
+
         let unsolvedEdges = [
-                cubePlaying[0][1], cubePlaying[4][1], // aW, qB
-                cubePlaying[0][3], cubePlaying[1][1], // dW, eO
-                cubePlaying[0][7], cubePlaying[2][1], // cW, iG
-                cubePlaying[0][5], cubePlaying[3][1], // bW, mR
+            { face: 0, index: 1, value: cubePlaying[0][1] }, // aW
+            { face: 4, index: 1, value: cubePlaying[4][1] }, // qB
 
-                cubePlaying[2][3], cubePlaying[1][5], // lG, fO
-                cubePlaying[2][5], cubePlaying[3][3], // jG, pR
-                cubePlaying[4][3], cubePlaying[3][5], // tB, nR
-                cubePlaying[4][5], cubePlaying[1][3], // rB, hO
+            { face: 0, index: 3, value: cubePlaying[0][3] }, // dW
+            { face: 1, index: 1, value: cubePlaying[1][1] }, // eO
 
-                cubePlaying[5][1], cubePlaying[2][7], // uY, kG
-                cubePlaying[5][3], cubePlaying[1][7], // xY, gO
-                cubePlaying[5][7], cubePlaying[4][7], // wY, sB
-                cubePlaying[5][5], cubePlaying[3][7]  // vY, oR
+            { face: 0, index: 7, value: cubePlaying[0][7] }, // cW
+            { face: 2, index: 1, value: cubePlaying[2][1] }, // iG
+
+            { face: 0, index: 5, value: cubePlaying[0][5] }, // bW
+            { face: 3, index: 1, value: cubePlaying[3][1] }, // mR
+
+            { face: 2, index: 3, value: cubePlaying[2][3] }, // lG
+            { face: 1, index: 5, value: cubePlaying[1][5] }, // fO
+
+            { face: 2, index: 5, value: cubePlaying[2][5] }, // jG
+            { face: 3, index: 3, value: cubePlaying[3][3] }, // pR
+
+            { face: 4, index: 3, value: cubePlaying[4][3] }, // tB
+            { face: 3, index: 5, value: cubePlaying[3][5] }, // nR
+
+            { face: 4, index: 5, value: cubePlaying[4][5] }, // rB
+            { face: 1, index: 3, value: cubePlaying[1][3] }, // hO
+
+            { face: 5, index: 1, value: cubePlaying[5][1] }, // uY
+            { face: 2, index: 7, value: cubePlaying[2][7] }, // kG
+
+            { face: 5, index: 3, value: cubePlaying[5][3] }, // xY
+            { face: 1, index: 7, value: cubePlaying[1][7] }, // gO
+
+            { face: 5, index: 7, value: cubePlaying[5][7] }, // wY
+            { face: 4, index: 7, value: cubePlaying[4][7] }, // sB
+
+            { face: 5, index: 5, value: cubePlaying[5][5] }, // vY
+            { face: 3, index: 7, value: cubePlaying[3][7] }  // oR
         ];
 
-        let arrayOfUnsolvedEdges = [{
-                //name: "gW"
-                //pos: cubePlaying[1][2],
+        let arrayOfEdges = [
+                //name: "cW"
+                //pos: cubePlaying[0][7],
                 //solved: false, Something like this
                 //buffer: false
-        }]
+        ]
 
         console.log(solvedEdges)
         console.log(unsolvedEdges)
@@ -171,19 +206,37 @@ function makeEdgeMemmoList() {
                 console.log("The edges are solved")
         } else { // [0][5] b will be our buffer, white red
                 unsolvedEdges.forEach((edge, i) => {
-                        if (edge === solvedEdges[i]) {
+                        if (edge.value === solvedEdges[i]) {
                                 isSolved = true;
-                                // no chatGPT was wrong it works
                         } else {
                                 isSolved = false;
                         }
-                        if (edge === buffer) {
+                        if (edge.value === buffer) {
                                 isBuffer = true;
+                        } else {
+                                isBuffer = false;
                         }
-                        stickerName = edge;
+                        stickerName = edge.value;
 
+                        edgePos = [edge.face, edge.index];
 
+                        if (i % 2 === 0) {
+                                partner = 1
+                        } else {
+                                partner = -1
+                        }
+
+                        arrayOfEdges.push({
+                                name: stickerName,
+                                pos: edgePos,
+                                solved: isSolved,
+                                buffer: isBuffer,
+                                partner: unsolvedEdges[i + partner].value
+                        })
                 });
+                // Now make the memmo list using the other thing
+                console.log(arrayOfEdges)
+                console.log(buffer)
                         // Pick another piece as buffer
                         // It should probably be separate
                         // and not have a "main" sticker on an edge
@@ -198,4 +251,4 @@ function makeEdgeMemmoList() {
 function makeCornerMemmoList() {
 
 }
-analyseer(cubePlaying)
+analyseer()

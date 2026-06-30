@@ -135,6 +135,9 @@ function centerAnalyser() {
 function makeEdgeMemmoList() {
         let edgesMemmoList = [];
         let unsolvedEdgesObjectList = [];
+        let isBuffer = false
+        let isSolved = false
+        let stickerName = "";
         // first see if all the edges are solved
         let unsolvedEdges = [
                 cubePlaying[0][1], cubePlaying[4][1], // aW, qB
@@ -167,14 +170,24 @@ function makeEdgeMemmoList() {
         if (JSON.stringify(unsolvedEdges) === JSON.stringify(solvedEdges)) {
                 console.log("The edges are solved")
         } else { // [0][5] b will be our buffer, white red
-                if (buffer === "bW") {
-                        console.log("Buffer is solved")
+                unsolvedEdges.forEach((edge, i) => {
+                        if (edge === solvedEdges[i]) {
+                                isSolved = true;
+                                // no chatGPT was wrong it works
+                        } else {
+                                isSolved = false;
+                        }
+                        if (edge === buffer) {
+                                isBuffer = true;
+                        }
+                        stickerName = edge;
+
+
+                });
                         // Pick another piece as buffer
                         // It should probably be separate
                         // and not have a "main" sticker on an edge
                         // Use the power of oop and make a object array for each piece
-                }
-                edgesMemmoList.push(cubePlaying[0][5].slice(0, cubePlaying[0][5].length / 2))
                 // need to do something with the buffer and
                 // aswell as figuring it out if it's idk
         }

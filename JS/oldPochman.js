@@ -58,6 +58,7 @@ function analyseer() {
                 if (JSON.stringify(cubePlaying) == JSON.stringify(cube)) {
                         console.log("The cube is solved")
                         solved = true
+                        break;
                 }
 
                 // Start by learing more about old pochman lol
@@ -129,7 +130,6 @@ function centerAnalyser() {
 
 function makeEdgeMemmoList() {
         let edgesMemmoList = [];
-        let unsolvedEdgesObjectList = [];
         let isBuffer = false
         let isSolved = false
         let stickerName = "";
@@ -198,9 +198,6 @@ function makeEdgeMemmoList() {
                 //buffer: false
         ]
 
-        console.log(solvedEdges)
-        console.log(unsolvedEdges)
-
         let buffer = cubePlaying[0][5]
         if (JSON.stringify(unsolvedEdges) === JSON.stringify(solvedEdges)) {
                 console.log("The edges are solved")
@@ -235,8 +232,25 @@ function makeEdgeMemmoList() {
                         })
                 });
                 // Now make the memmo list using the other thing
-                console.log(arrayOfEdges)
-                console.log(buffer)
+
+                // Look at buffer and see what piece is there
+                if (buffer === "bW") {
+                        for (const edge of arrayOfEdges) {
+                                if (!edge.buffer && !edge.solved) {
+                                        edgesMemmoList.push(edge)
+                                        break;
+
+                                }
+                        }
+                        console.log("DEBUGING", edgesMemmoList)
+                        for (const edge of arrayOfEdges) {
+                                if (!edge.buffer && !edge.solved
+                                    && edge.name !== edgesMemmoList[0].name
+                                    && !edgesMemmoList.some(memo => memo.name === edge.partner)) {
+                                        edgesMemmoList.push(edge)
+                                }
+                        }
+                }
                         // Pick another piece as buffer
                         // It should probably be separate
                         // and not have a "main" sticker on an edge
@@ -245,7 +259,8 @@ function makeEdgeMemmoList() {
                 // aswell as figuring it out if it's idk
         }
 
-        console.log(edgesMemmoList)
+        console.log(arrayOfEdges)
+        console.log("Edge memmo list", edgesMemmoList)
 }
 
 function makeCornerMemmoList() {

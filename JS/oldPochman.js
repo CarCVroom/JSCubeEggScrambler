@@ -242,11 +242,17 @@ function makeEdgeMemmoList() {
 
                                 }
                         }
-                        console.log("DEBUGING", edgesMemmoList)
                         for (const edge of arrayOfEdges) {
                                 if (!edge.buffer && !edge.solved
-                                    && edge.name !== edgesMemmoList[0].name
-                                    && !edgesMemmoList.some(memo => memo.name === edge.partner)) {
+                                        && edge.name !== edgesMemmoList[0].name
+                                        && !edgesMemmoList.some(memo => memo.name === edge.partner)) {
+                                        edgesMemmoList.push(edge)
+                                }
+                        }
+                } else {
+                        for (const edge of arrayOfEdges) {
+                                if (!edge.buffer && !edge.solved
+                                        && !edgesMemmoList.some(memo => memo.name === edge.partner)) {
                                         edgesMemmoList.push(edge)
                                 }
                         }

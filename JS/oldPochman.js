@@ -135,6 +135,7 @@ function makeEdgeMemmoList() {
         let stickerName = "";
         let edgePos = [];
         let partner = 0;
+        let currentPiece;
         // first see if all the edges are solved
         // let unsolvedEdges = [
         //         cubePlaying[0][1], cubePlaying[4][1], // aW, qB
@@ -236,19 +237,21 @@ function makeEdgeMemmoList() {
                 // Look at buffer and see what piece is there
                 if (buffer === "bW") {
                         for (const edge of arrayOfEdges) {
-                                if (!edge.buffer && !edge.solved) {
+                                if (!edge.buffer && !edge.solved && (![0, 1].includes(edge.pos[0])) && (![1, 3].includes(edge.pos[1])) ) {
                                         edgesMemmoList.push(edge)
                                         break;
 
                                 }
                         }
-                        for (const edge of arrayOfEdges) {
-                                if (!edge.buffer && !edge.solved
-                                        && edge.name !== edgesMemmoList[0].name
-                                        && !edgesMemmoList.some(memo => memo.name === edge.partner)) {
-                                        edgesMemmoList.push(edge)
-                                }
+                        // Look at the old slot and see what piece is there
+                        // I think maybe I can loop this?
+                        // Will find out later ig
+                        // Will find out now
+
+                        for (const [i, edge] of arrayOfEdges.entries()) {
+                                currentPiece = edgesMemmoList[edgesMemmoList.length - 1].pos
                         }
+                                        // NO THIS IS ALL WRONG, I NEED TO MAKE IT DIFFRENT AND LOOK AT THE PREVIOSE ONE
                 } else {
                         for (const edge of arrayOfEdges) {
                                 if (!edge.buffer && !edge.solved
@@ -267,6 +270,7 @@ function makeEdgeMemmoList() {
 
         console.log(arrayOfEdges)
         console.log("Edge memmo list", edgesMemmoList)
+        console.log(currentPiece)
 }
 
 function makeCornerMemmoList() {

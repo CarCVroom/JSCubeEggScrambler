@@ -338,6 +338,6 @@ export function sliceMoves(prime, double, moveN) {
 //x R' U R' D2 R U' R' D2 R2
 // oh no i can do old pochman lol
 
-move(false, false, "L")
+move(false, false, "R")
 rotation(false, false, "y")
 rotation(false, true, "z")

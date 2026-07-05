@@ -248,9 +248,10 @@ function makeEdgeMemmoList() {
                         // Will find out later ig
                         // Will find out now
 
-                        for (const [i, edge] of arrayOfEdges.entries()) {
-                                currentPiece = edgesMemmoList[edgesMemmoList.length - 1].pos
-                        }
+                        //for (const [i, edge] of arrayOfEdges.entries()) {
+                        currentPiece = edgesMemmoList[edgesMemmoList.length - 1].pos
+                        currentPiece = arrayOfEdges // See if one of the things matches the pos
+                                //}
                                         // NO THIS IS ALL WRONG, I NEED TO MAKE IT DIFFRENT AND LOOK AT THE PREVIOSE ONE
                 } else {
                         for (const edge of arrayOfEdges) {

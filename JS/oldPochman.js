@@ -37,9 +37,49 @@ function oldPochmanY() {
         move(false, false, "R")  // R
 }
 
-const solvedEdges = ["aW", "qB", "dW", "eO", "cW", "iG", "bW", "mR",
-                     "lG", "fO", "jG", "pR", "tB", "nR", "rB", "hO",
-                     "uY", "kG", "xY", "gO", "wY", "sB", "vY", "oR"] // Fill out with all the edges
+// const solvedEdges = [
+//         { face: 0, index: 1, value: "aW" },
+//         { face: 4, index: 1, value: "qB" },
+//         "dW", "eO", "cW", "iG", "bW", "mR",
+//                      "lG", "fO", "jG", "pR", "tB", "nR", "rB", "hO",
+//         "uY", "kG", "xY", "gO", "wY", "sB", "vY", "oR"] // Fill out with all the edges
+const solvedEdges = [
+                         { face: 0, index: 1, value: "aW" },
+                         { face: 4, index: 1, value: "qB" },
+
+                         { face: 0, index: 3, value: "dW" },
+                         { face: 1, index: 1, value: "eO" },
+
+                         { face: 0, index: 7, value: "cW" },
+                         { face: 2, index: 1, value: "iG" },
+
+                         { face: 0, index: 5, value: "bW" },
+                         { face: 3, index: 1, value: "mR" },
+
+                         { face: 2, index: 3, value: "lG" },
+                         { face: 1, index: 5, value: "fO" },
+
+                         { face: 2, index: 5, value: "jG" },
+                         { face: 3, index: 3, value: "pR" },
+
+                         { face: 4, index: 3, value: "tB" },
+                         { face: 3, index: 5, value: "nR" },
+
+                         { face: 4, index: 5, value: "rB" },
+                         { face: 1, index: 3, value: "hO" },
+
+                         { face: 5, index: 1, value: "uY" },
+                         { face: 2, index: 7, value: "kG" },
+
+                         { face: 5, index: 3, value: "xY" },
+                         { face: 1, index: 7, value: "gO" },
+
+                         { face: 5, index: 7, value: "wY" },
+                         { face: 4, index: 7, value: "sB" },
+
+                         { face: 5, index: 5, value: "vY" },
+                         { face: 3, index: 7, value: "oR" }
+                     ];
 // need to finish with all of my edge pairs,
 // thinking it should be the faces/sides for EO in ZZ for main sticker
 
@@ -136,6 +176,7 @@ function makeEdgeMemmoList() {
         let edgePos = [];
         let partner = 0;
         let currentPiece;
+        let solvedPos = [];
         // first see if all the edges are solved
         // let unsolvedEdges = [
         //         cubePlaying[0][1], cubePlaying[4][1], // aW, qB
@@ -204,7 +245,7 @@ function makeEdgeMemmoList() {
                 console.log("The edges are solved")
         } else { // [0][5] b will be our buffer, white red
                 unsolvedEdges.forEach((edge, i) => {
-                        if (edge.value === solvedEdges[i]) {
+                        if (edge.value === solvedEdges[i].value) {
                                 isSolved = true;
                         } else {
                                 isSolved = false;
@@ -224,12 +265,16 @@ function makeEdgeMemmoList() {
                                 partner = -1
                         }
 
+                        solvedPos = solvedEdges.find(e => e.value === edge.value)
+                        solvedPos = [solvedPos.face, solvedPos.index]
+
                         arrayOfEdges.push({
                                 name: stickerName,
                                 pos: edgePos,
                                 solved: isSolved,
                                 buffer: isBuffer,
-                                partner: unsolvedEdges[i + partner].value
+                                partner: unsolvedEdges[i + partner].value,
+                                solvedPos: solvedPos
                         })
                 });
                 // Now make the memmo list using the other thing
@@ -247,10 +292,15 @@ function makeEdgeMemmoList() {
                         // I think maybe I can loop this?
                         // Will find out later ig
                         // Will find out now
+                        //
+                        // Then look at the buffer and see what piece is there
 
                         //for (const [i, edge] of arrayOfEdges.entries()) {
                         currentPiece = edgesMemmoList[edgesMemmoList.length - 1].pos
-                        currentPiece = arrayOfEdges // See if one of the things matches the pos
+                        currentPiece = arrayOfEdges.find(e => e.pos == currentPiece)// See if one of the things matches the pos
+                        currentPiece = currentPiece.solvedPos
+                        currentPiece = arrayOfEdges.find(e => e.pos.every((v, i) => v === currentPiece[i])) // now use solvedPos to find where that piece needs to go
+                        edgesMemmoList.push(currentPiece)
                                 //}
                                         // NO THIS IS ALL WRONG, I NEED TO MAKE IT DIFFRENT AND LOOK AT THE PREVIOSE ONE
                 } else {
@@ -267,11 +317,11 @@ function makeEdgeMemmoList() {
                         // Use the power of oop and make a object array for each piece
                 // need to do something with the buffer and
                 // aswell as figuring it out if it's idk
+                //console.log(arrayOfEdges)
+                console.log("Edge memmo list", edgesMemmoList)
+                console.log(currentPiece)
         }
 
-        console.log(arrayOfEdges)
-        console.log("Edge memmo list", edgesMemmoList)
-        console.log(currentPiece)
 }
 
 function makeCornerMemmoList() {

@@ -36,13 +36,6 @@ function oldPochmanY() {
         move(false, false, "F")  // F
         move(false, false, "R")  // R
 }
-
-// const solvedEdges = [
-//         { face: 0, index: 1, value: "aW" },
-//         { face: 4, index: 1, value: "qB" },
-//         "dW", "eO", "cW", "iG", "bW", "mR",
-//                      "lG", "fO", "jG", "pR", "tB", "nR", "rB", "hO",
-//         "uY", "kG", "xY", "gO", "wY", "sB", "vY", "oR"] // Fill out with all the edges
 const solvedEdges = [
                          { face: 0, index: 1, value: "aW" },
                          { face: 4, index: 1, value: "qB" },
@@ -80,8 +73,6 @@ const solvedEdges = [
                          { face: 5, index: 5, value: "vY" },
                          { face: 3, index: 7, value: "oR" }
                      ];
-// need to finish with all of my edge pairs,
-// thinking it should be the faces/sides for EO in ZZ for main sticker
 
 let scramble = process.argv[2];
 
@@ -112,15 +103,11 @@ function analyseer() {
 
                 // Then make the memmo list
 
-                // Should do edges first, then corners
-                // Edges
                 makeEdgeMemmoList();
-                // Corners
                 makeCornerMemmoList();
 
                 // Then execute the moves
 
-                // Have it always output the solution
                 console.log(solution)
         }
         while (solved === false)
@@ -129,7 +116,6 @@ function analyseer() {
 }
 
 function centerAnalyser() {
-        // Do the stuff to get to correct orentation
         do { // solve the White center first, then green is just y moves
 
                 if (cubePlaying[1][4] === "CW" || cubePlaying[3][4] === "CW") {
@@ -178,23 +164,6 @@ function makeEdgeMemmoList() {
         let currentPiece;
         let solvedPos = [];
         let loopLength = 0;
-        // first see if all the edges are solved
-        // let unsolvedEdges = [
-        //         cubePlaying[0][1], cubePlaying[4][1], // aW, qB
-        //         cubePlaying[0][3], cubePlaying[1][1], // dW, eO
-        //         cubePlaying[0][7], cubePlaying[2][1], // cW, iG
-        //         cubePlaying[0][5], cubePlaying[3][1], // bW, mR
-
-        //         cubePlaying[2][3], cubePlaying[1][5], // lG, fO
-        //         cubePlaying[2][5], cubePlaying[3][3], // jG, pR
-        //         cubePlaying[4][3], cubePlaying[3][5], // tB, nR
-        //         cubePlaying[4][5], cubePlaying[1][3], // rB, hO
-
-        //         cubePlaying[5][1], cubePlaying[2][7], // uY, kG
-        //         cubePlaying[5][3], cubePlaying[1][7], // xY, gO
-        //         cubePlaying[5][7], cubePlaying[4][7], // wY, sB
-        //         cubePlaying[5][5], cubePlaying[3][7]  // vY, oR
-        // ];
 
         let unsolvedEdges = [
             { face: 0, index: 1, value: cubePlaying[0][1] }, // aW
@@ -289,20 +258,14 @@ function makeEdgeMemmoList() {
 
                                 }
                         }
-                        // Look at the old slot and see what piece is there
-                        // I think maybe I can loop this?
-                        // Will find out later ig
-                        // Will find out now
-                        //
-                        // Then look at the buffer and see what piece is there
 
-                        //for (const [i, edge] of arrayOfEdges.entries()) {
                         for (let k = 0; k < arrayOfEdges.length; k++) {
                                 if (arrayOfEdges[k].solved === false) {
                                         loopLength += 1;
                                 }
                         }
                         loopLength = loopLength / 2;
+                        console.log("LoopLength is: "  + loopLength)
                         for (let j = 0; j < loopLength; j++) {
                                 currentPiece = edgesMemmoList[edgesMemmoList.length - 1].pos
                                 currentPiece = arrayOfEdges.find(e => e.pos == currentPiece)// See if one of the things matches the pos
@@ -310,7 +273,6 @@ function makeEdgeMemmoList() {
                                 currentPiece = arrayOfEdges.find(e => e.pos.every((v, i) => v === currentPiece[i])) // now use solvedPos to find where that piece needs to go
                                 edgesMemmoList.push(currentPiece)
                         }
-                                //}
                                         // NO THIS IS ALL WRONG, I NEED TO MAKE IT DIFFRENT AND LOOK AT THE PREVIOSE ONE
                 } else {
                         // Look at the buffer and see what piece is there and add that to memmo list
@@ -322,28 +284,28 @@ function makeEdgeMemmoList() {
                                 }
                         }
                         loopLength = loopLength / 2;
+                        console.log("LoopLength is: "  + loopLength)
                         for (let j = 0; j < loopLength; j++) {
                                 currentPiece = edgesMemmoList[edgesMemmoList.length - 1].pos // Here i need to do something when nothings in memmo list cuz no buffer swap
                                 currentPiece = arrayOfEdges.find(e => e.pos == currentPiece)// See if one of the things matches the pos
                                 currentPiece = currentPiece.solvedPos
                                 currentPiece = arrayOfEdges.find(e => e.pos.every((v, i) => v === currentPiece[i])) // now use solvedPos to find where that piece needs to go
-                                console.log(j)
                                 if (currentPiece.name === "bW") {
-                                        break;
+                                        // Pick another edge as buffer
+                                        for (const edge of arrayOfEdges) {
+                                                if (!currentPiece.buffer && !edge.solved && (![0, 1].includes(edge.pos[0])) && (![1, 3].includes(edge.pos[1])) && !edgesMemmoList.includes(edge)) {
+                                                        edgesMemmoList.push(edge) // LOOK MORE INTO THIS
+                                                } // Wait this code sucks and I need to fix it
+                                        }
+
+                                        //break;
                                         // Still think I need to look and see if i coverd every thing, maybe just compare to loopLength
                                         // Can check if I have looked and added the other unsolved stickers
                                 }
                                 edgesMemmoList.push(currentPiece)
                         }
                 }
-                        // Pick another piece as buffer
-                        // It should probably be separate
-                        // and not have a "main" sticker on an edge
-                        // Use the power of oop and make a object array for each piece
-                // need to do something with the buffer and
-                // aswell as figuring it out if it's idk
-                //console.log(arrayOfEdges)
-                console.log("Edge memmo list", edgesMemmoList)
+               console.log("Edge memmo list", edgesMemmoList)
         }
 
 }

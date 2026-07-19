@@ -287,13 +287,17 @@ function makeEdgeMemmoList() {
                         console.log("LoopLength is: "  + loopLength)
                         for (let j = 0; j < loopLength; j++) {
                                 currentPiece = edgesMemmoList[edgesMemmoList.length - 1].pos // Here i need to do something when nothings in memmo list cuz no buffer swap
+                                console.log(currentPiece , 1)
                                 currentPiece = arrayOfEdges.find(e => e.pos == currentPiece)// See if one of the things matches the pos
+                                console.log(currentPiece, 2 )
                                 currentPiece = currentPiece.solvedPos
+                                console.log(currentPiece, 3 )
                                 currentPiece = arrayOfEdges.find(e => e.pos.every((v, i) => v === currentPiece[i])) // now use solvedPos to find where that piece needs to go
+                                console.log(currentPiece, 4 )
                                 if (currentPiece.name === "bW") {
                                         // Pick another edge as buffer
                                         for (const edge of arrayOfEdges) {
-                                                if (!currentPiece.buffer && !edge.solved && (![0, 1].includes(edge.pos[0])) && (![1, 3].includes(edge.pos[1])) && !edgesMemmoList.includes(edge)) {
+                                                if (!currentPiece.buffer && !edge.solved && !([0, 1].includes(edge.pos[0])) && !([1, 3].includes(edge.pos[1])) && !edgesMemmoList.includes(edge) && edge.name !== "bW" && edge.name !== "mR") {
                                                         edgesMemmoList.push(edge) // LOOK MORE INTO THIS
                                                 } // Wait this code sucks and I need to fix it
                                         }
@@ -301,11 +305,13 @@ function makeEdgeMemmoList() {
                                         //break;
                                         // Still think I need to look and see if i coverd every thing, maybe just compare to loopLength
                                         // Can check if I have looked and added the other unsolved stickers
+                                } else if (currentPiece.name !== "bW" && currentPiece.name !== "mR"){
+                                        edgesMemmoList.push(currentPiece)
                                 }
-                                edgesMemmoList.push(currentPiece)
+                                console.log(edgesMemmoList , "NUMBER IN THE LOOP: " , j)
                         }
                 }
-               console.log("Edge memmo list", edgesMemmoList)
+               //console.log("Edge memmo list", edgesMemmoList)
         }
 
 }

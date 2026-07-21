@@ -169,43 +169,7 @@ function makeEdgeMemmoList() {
         let loopLength = 0;
         let found = false;
 
-        let unsolvedEdges = [
-            { face: 0, index: 1, value: cubePlaying[0][1] }, // aW
-            { face: 4, index: 1, value: cubePlaying[4][1] }, // qB
-
-            { face: 0, index: 3, value: cubePlaying[0][3] }, // dW
-            { face: 1, index: 1, value: cubePlaying[1][1] }, // eO
-
-            { face: 0, index: 7, value: cubePlaying[0][7] }, // cW
-            { face: 2, index: 1, value: cubePlaying[2][1] }, // iG
-
-            { face: 0, index: 5, value: cubePlaying[0][5] }, // bW
-            { face: 3, index: 1, value: cubePlaying[3][1] }, // mR
-
-            { face: 2, index: 3, value: cubePlaying[2][3] }, // lG
-            { face: 1, index: 5, value: cubePlaying[1][5] }, // fO
-
-            { face: 2, index: 5, value: cubePlaying[2][5] }, // jG
-            { face: 3, index: 3, value: cubePlaying[3][3] }, // pR
-
-            { face: 4, index: 3, value: cubePlaying[4][3] }, // tB
-            { face: 3, index: 5, value: cubePlaying[3][5] }, // nR
-
-            { face: 4, index: 5, value: cubePlaying[4][5] }, // rB
-            { face: 1, index: 3, value: cubePlaying[1][3] }, // hO
-
-            { face: 5, index: 1, value: cubePlaying[5][1] }, // uY
-            { face: 2, index: 7, value: cubePlaying[2][7] }, // kG
-
-            { face: 5, index: 3, value: cubePlaying[5][3] }, // xY
-            { face: 1, index: 7, value: cubePlaying[1][7] }, // gO
-
-            { face: 5, index: 7, value: cubePlaying[5][7] }, // wY
-            { face: 4, index: 7, value: cubePlaying[4][7] }, // sB
-
-            { face: 5, index: 5, value: cubePlaying[5][5] }, // vY
-            { face: 3, index: 7, value: cubePlaying[3][7] }  // oR
-        ];
+        let unsolvedEdges = checkUnsolvedEdges();
 
         let arrayOfEdges = [
                 //name: "cW"
@@ -330,7 +294,7 @@ function makeEdgeMemmoList() {
                 }
                 console.log(edgesMemmoList)
 
-                edgesSolver(edgesMemmoList, unsolvedEdges);
+                edgesSolver(edgesMemmoList);
                //console.log("Edge memmo list", edgesMemmoList)
         }
 
@@ -340,15 +304,16 @@ function makeCornerMemmoList() {
 
 }
 
-function edgesSolver(memmoList, unsolvedEdges) {
+function edgesSolver(memmoList) {
         let useList = structuredClone(memmoList);
         let n, C;
+        let unsolvedEdges = checkUnsolvedEdges();
+
+        printCube(cubePlaying)
 
         for (const edge of useList) {
                 n = edge.substring(0, 1);
                 C = edge.substring(1);
-
-                console.log(n, C)
 
                 switch (n) {
                         case "j":
@@ -409,13 +374,59 @@ function edgesSolver(memmoList, unsolvedEdges) {
                                 break;
                 }
 
+                unsolvedEdges = checkUnsolvedEdges();
+                //console.log(unsolvedEdges)
                 if (edgeChecker(unsolvedEdges)) {
                         return;
+                } else {
+                        console.log("Not solved")
+                        printCube(cubePlaying)
                 }
         }
 }
 
 function edgeChecker(unsolvedEdges) {
         return JSON.stringify(unsolvedEdges) === JSON.stringify(solvedEdges)
+}
+
+function checkUnsolvedEdges() {
+        let arr = [
+            { face: 0, index: 1, value: cubePlaying[0][1] }, // aW
+            { face: 4, index: 1, value: cubePlaying[4][1] }, // qB
+
+            { face: 0, index: 3, value: cubePlaying[0][3] }, // dW
+            { face: 1, index: 1, value: cubePlaying[1][1] }, // eO
+
+            { face: 0, index: 7, value: cubePlaying[0][7] }, // cW
+            { face: 2, index: 1, value: cubePlaying[2][1] }, // iG
+
+            { face: 0, index: 5, value: cubePlaying[0][5] }, // bW
+            { face: 3, index: 1, value: cubePlaying[3][1] }, // mR
+
+            { face: 2, index: 3, value: cubePlaying[2][3] }, // lG
+            { face: 1, index: 5, value: cubePlaying[1][5] }, // fO
+
+            { face: 2, index: 5, value: cubePlaying[2][5] }, // jG
+            { face: 3, index: 3, value: cubePlaying[3][3] }, // pR
+
+            { face: 4, index: 3, value: cubePlaying[4][3] }, // tB
+            { face: 3, index: 5, value: cubePlaying[3][5] }, // nR
+
+            { face: 4, index: 5, value: cubePlaying[4][5] }, // rB
+            { face: 1, index: 3, value: cubePlaying[1][3] }, // hO
+
+            { face: 5, index: 1, value: cubePlaying[5][1] }, // uY
+            { face: 2, index: 7, value: cubePlaying[2][7] }, // kG
+
+            { face: 5, index: 3, value: cubePlaying[5][3] }, // xY
+            { face: 1, index: 7, value: cubePlaying[1][7] }, // gO
+
+            { face: 5, index: 7, value: cubePlaying[5][7] }, // wY
+            { face: 4, index: 7, value: cubePlaying[4][7] }, // sB
+
+            { face: 5, index: 5, value: cubePlaying[5][5] }, // vY
+            { face: 3, index: 7, value: cubePlaying[3][7] }  // oR
+        ];
+        return arr;
 }
 analyseer()

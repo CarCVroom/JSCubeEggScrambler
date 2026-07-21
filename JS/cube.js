@@ -56,7 +56,7 @@ export function move(prime, doubleMove, move) {
                 });
                 cubePlaying[side] = newSide;
         }
-        printCube(cubePlaying);
+        //printCube(cubePlaying);
 }
 function getTheInput(prime, move) {
         let targetArray, targetSideArray;
@@ -211,7 +211,7 @@ export function rotation(prime, double, rotation) {
                 })
                 cubePlaying[sideB] = newSideB;
         }
-        printCube(cubePlaying)
+        //printCube(cubePlaying)
 }
 function getSides(rotation) {
         let side1, side2;

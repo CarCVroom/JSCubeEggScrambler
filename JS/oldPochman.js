@@ -1,5 +1,8 @@
-import { cube, cubePlaying, move , rotation } from "./cube.js";
+import { EffectComposer } from "three/examples/jsm/Addons.js";
+import { cube, cubePlaying, move , rotation, wideMove } from "./cube.js";
 import { printCube } from "./utils.js";
+import { mx_fractal_noise_float } from "three/src/nodes/materialx/lib/mx_noise.js";
+import { error } from "three";
 let count = 0;
 let solution = "";
 
@@ -147,7 +150,7 @@ function centerAnalyser() {
                                 count += 1;
                         }
                         while(cubePlaying[2][4] !== "CG")
-                        solution += `y${count}`
+                        solution += `y${count} `
                 }
         }
         while (cubePlaying[0][4] !== "CW" && cubePlaying[2][4] !== "CG")
@@ -164,6 +167,7 @@ function makeEdgeMemmoList() {
         let currentPiece;
         let solvedPos = [];
         let loopLength = 0;
+        let found = false;
 
         let unsolvedEdges = [
             { face: 0, index: 1, value: cubePlaying[0][1] }, // aW
@@ -211,8 +215,9 @@ function makeEdgeMemmoList() {
         ]
 
         let buffer = cubePlaying[0][5]
-        if (JSON.stringify(unsolvedEdges) === JSON.stringify(solvedEdges)) {
+        if (edgeChecker(unsolvedEdges)) {
                 console.log("The edges are solved")
+                return;
         } else { // [0][5] b will be our buffer, white red
                 unsolvedEdges.forEach((edge, i) => {
                         if (edge.value === solvedEdges[i].value) {
@@ -264,7 +269,7 @@ function makeEdgeMemmoList() {
                                         loopLength += 1;
                                 }
                         }
-                        loopLength = loopLength / 2;
+                        loopLength = Math.ceil(loopLength / 2);
                         console.log("LoopLength is: "  + loopLength)
                         for (let j = 0; j < loopLength; j++) {
                                 currentPiece = edgesMemmoList[edgesMemmoList.length - 1].pos
@@ -286,21 +291,28 @@ function makeEdgeMemmoList() {
                         loopLength = loopLength / 2;
                         console.log("LoopLength is: "  + loopLength)
                         for (let j = 0; j < loopLength; j++) {
+
+                                found = false;
+
                                 currentPiece = edgesMemmoList[edgesMemmoList.length - 1].pos // Here i need to do something when nothings in memmo list cuz no buffer swap
-                                console.log(currentPiece , 1)
+                                //console.log(currentPiece , 1)
                                 currentPiece = arrayOfEdges.find(e => e.pos == currentPiece)// See if one of the things matches the pos
-                                console.log(currentPiece, 2 )
+                                //console.log(currentPiece, 2 )
                                 currentPiece = currentPiece.solvedPos
-                                console.log(currentPiece, 3 )
+                                //console.log(currentPiece, 3 )
                                 currentPiece = arrayOfEdges.find(e => e.pos.every((v, i) => v === currentPiece[i])) // now use solvedPos to find where that piece needs to go
-                                console.log(currentPiece, 4 )
+                                //console.log(currentPiece, 4 )
                                 if (currentPiece.name === "bW") {
                                         // Pick another edge as buffer
                                         for (const edge of arrayOfEdges) {
                                                 if (!currentPiece.buffer && !edge.solved && !([0, 1].includes(edge.pos[0])) && !([1, 3].includes(edge.pos[1])) && !edgesMemmoList.includes(edge) && edge.name !== "bW" && edge.name !== "mR") {
                                                         edgesMemmoList.push(edge) // LOOK MORE INTO THIS
+                                                        found = true;
+                                                        break;
                                                 } // Wait this code sucks and I need to fix it
                                         }
+
+                                        if (found) { continue; }
 
                                         //break;
                                         // Still think I need to look and see if i coverd every thing, maybe just compare to loopLength
@@ -308,9 +320,17 @@ function makeEdgeMemmoList() {
                                 } else if (currentPiece.name !== "bW" && currentPiece.name !== "mR"){
                                         edgesMemmoList.push(currentPiece)
                                 }
-                                console.log(edgesMemmoList , "NUMBER IN THE LOOP: " , j)
+                                // Thinking just making it a switch case and then looking at the frist letter
+                                //console.log(edgesMemmoList , "NUMBER IN THE LOOP: " , j)
                         }
                 }
+                // Strip memmoList to just be name, and then do the edge solving logic.
+                for (let i = 0; i < edgesMemmoList.length; i++) {
+                        edgesMemmoList[i] = edgesMemmoList[i].name;
+                }
+                console.log(edgesMemmoList)
+
+                edgesSolver(edgesMemmoList, unsolvedEdges);
                //console.log("Edge memmo list", edgesMemmoList)
         }
 
@@ -318,5 +338,84 @@ function makeEdgeMemmoList() {
 
 function makeCornerMemmoList() {
 
+}
+
+function edgesSolver(memmoList, unsolvedEdges) {
+        let useList = structuredClone(memmoList);
+        let n, C;
+
+        for (const edge of useList) {
+                n = edge.substring(0, 1);
+                C = edge.substring(1);
+
+                console.log(n, C)
+
+                switch (n) {
+                        case "j":
+                                wideMove(false, true, "d");
+                                move(false, false, "L");
+                                Tperm();
+                                move(true, false, "L");
+                                wideMove(false, true, "d");
+
+                                solution += "d2 L [tPerm] L' d2 ";
+                                break;
+                        case "v":
+                                move(false, true, "D");
+                                move(false, true, "L");
+                                Tperm();
+                                move(false, true, "L");
+                                move(false, true, "D");
+
+                                solution += "D2 L2 [tPerm] L2 D2 ";
+                                break;
+                        case "t":
+                                wideMove(false, true, "d");
+                                move(true, false, "L")
+                                Tperm();
+                                move(false, false, "L");
+                                wideMove(false, true, "d");
+
+                                solution += "d2 L' [tPerm] L d2 ";
+                                break;
+                        case "x":
+                                move(false, true, "L");
+                                Tperm()
+                                move(false, true, "L");
+
+                                solution += "L2 [tPerm] L2 ";
+                                break;
+                        case "l":
+                                move(true, false, "L");
+                                Tperm()
+                                move(false, false, "L");
+
+                                solution += "L' [tPerm] L ";
+                                break;
+                        case "d":
+                                Tperm()
+
+                                solution += "[tPerm] ";
+                                break;
+                        case "r":
+                                move(false, false, "L");
+                                Tperm();
+                                move(true, false, "L");
+
+                                solution += "L [tPerm] L' "
+                                break;
+                        default:
+                                throw new error("Invalid edge name, how? Or have am I not done writing the move things")
+                                break;
+                }
+
+                if (edgeChecker(unsolvedEdges)) {
+                        return;
+                }
+        }
+}
+
+function edgeChecker(unsolvedEdges) {
+        return JSON.stringify(unsolvedEdges) === JSON.stringify(solvedEdges)
 }
 analyseer()

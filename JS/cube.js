@@ -180,11 +180,11 @@ export function rotation(prime, double, rotation) {
                 [cubePlaying[upp[0]], cubePlaying[upp[1]], cubePlaying[upp[2]], cubePlaying[upp[3]]]
                 = prime ? [b, c, d, a] : [d, a, b, c];
 
-                if (rotation == "r") {
+                if (rotation == "y") {
                         cubePlaying[upp[1]] = flipFace(cubePlaying[upp[1]]);
-                        cubePlaying[upp[2]] = flipFace(cubePlaying[upp[2]]);
+                        cubePlaying[upp[2]] = flipFace(cubePlaying[upp[2]]); // Clearly does something that I can't remember because it's leaving the w and y face 180 degress off
                 } else if (rotation === "z" && !prime) {
-                        cubePlaying[upp[0]] = rotateFace90CW(cubePlaying[upp[0]]);
+                        cubePlaying[upp[0]] = rotateFace90CW(cubePlaying[upp[0]]); // and I dont know why it was 'r'. And when made to 'y' it flips organge and green and I can't get it to filp white
                         cubePlaying[upp[1]] = rotateFace90CW(cubePlaying[upp[1]]);
                         cubePlaying[upp[2]] = rotateFace90CW(cubePlaying[upp[2]]);
                         cubePlaying[upp[3]] = rotateFace90CW(cubePlaying[upp[3]]);
@@ -201,7 +201,7 @@ export function rotation(prime, double, rotation) {
 
                 cubePlaying[sideA].forEach((sticker, n) => {
                         if (n === 4) return;
-                        newSideA[sideArray[n]] = sticker;
+                        newSideA[sideArray[n]] = sticker; // Maybe the fix is in here but idk.
                 })
                 cubePlaying[sideA] = newSideA;
                 sideArray.reverse(); // reverses it cuz it needs to.
@@ -210,6 +210,7 @@ export function rotation(prime, double, rotation) {
                         newSideB[sideArray[n]] = sticker;
                 })
                 cubePlaying[sideB] = newSideB;
+                sideArray.reverse();
         }
         //printCube(cubePlaying)
 }

@@ -367,7 +367,7 @@ function edgesSolver(memmoList) {
                                 Tperm();
                                 move(true, false, "L");
 
-                                solution += "L [tPerm] L' "
+                                solution += "L [tPerm] L'"
                                 break;
                         default:
                                 throw new error("Invalid edge name, how? Or have am I not done writing the move things")
@@ -379,8 +379,9 @@ function edgesSolver(memmoList) {
                 if (edgeChecker(unsolvedEdges)) {
                         return;
                 } else {
-                        console.log("Not solved")
-                        printCube(cubePlaying)
+                        console.log()
+                        printCube(cubePlaying);
+                        console.log()
                 }
         }
 }
